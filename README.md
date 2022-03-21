@@ -1,6 +1,6 @@
 # SIMAKS
 
-SIMAKS adalah haril dari tugas rekayasa perangkat lunak yang bertujuan membuat sistem manajemen konten simplified atau manajemen kontol sederhana mudah digunakan.
+SIMAKS adalah haril dari tugas rekayasa perangkat lunak yang bertujuan membuat sistem manajemen konten simplified atau manajemen kontol sederhana mudah digunakan.:)
 
 ## How to run
 
