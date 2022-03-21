@@ -7,10 +7,11 @@
             <span class="text">Create article</span>
         </a>
     </div>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Articles</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -19,32 +20,26 @@
                         <tr>
                             <th>No</th>
                             <th>Title</th>
-                            <th>Categori</th>
+                            <th>Categories</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Title</th>
-                            <th>Categori</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach($articles as $article)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $article->title }}</td>
                             <td>{{ $article->category->name }}</td>
+                            <td>{{ $article->is_published == true ? 'Published' : 'Unpublished' }}</td>
                             <td>
-                                <a class="badge bg-success text-white" href="/dashboard/articles/{{ $article->slug }}">
+                              <a class="badge bg-success text-white" href="/dashboard/articles/{{ $article->slug }}">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <a class="badge bg-warning text-white" href="/dashboard/articles/{{ $article->slug }}/edit">
                                     <i class="fas fa-pen"></i>
                                 </a>
-                                    <button type="button" class="badge bg-danger d-inline border-0" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{ $article->slug }}"><i class="fas fa-trash"></i></button>
+                                <button type="button" class="badge bg-danger d-inline border-0" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{ $article->slug }}"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                         @endforeach
@@ -83,12 +78,16 @@
 </div>
 @endsection
 
+@push('styles')
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endpush
+
 @push('scripts')
-<!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-{{-- Page level custom scripts --}}
-<script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+  <!-- Page level plugins -->
+  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  {{-- Page level custom scripts --}}
+  <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
 
 <script>
   let deleteModal = document.getElementById('deleteModal');
