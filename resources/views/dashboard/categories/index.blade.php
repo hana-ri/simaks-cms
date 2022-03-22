@@ -27,7 +27,7 @@
                                     <div class="card-body">
                                         <p>{{ $category->description }}</p>
                                         <a href="/dashboard/categories/{{ $category->slug }}/edit" class="btn btn-warning text-white">Edit</a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{ $category->name }}">Delete</button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{ $category->slug }}">Delete</button>
                                     </div>
                                 </div>
                             </div>

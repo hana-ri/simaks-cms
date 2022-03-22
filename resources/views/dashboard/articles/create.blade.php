@@ -8,8 +8,6 @@
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Create Article</h6>
-                        <small class="m-0 font-weight-bold text-primary"><a href="/dashboard/articles">
-                                <i class="bi bi-arrow-left-short"></i> Back </a></small>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
@@ -58,11 +56,11 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @can('policy', Model::class)
+                                @can('admin')
                                 <div class="col-sm-6">
                                         <label for="category" class="form-label">Status</label>
                                         <select class="form-select" aria-label="Default select example" name="is_published">
-                                             <option value="1">Published</option>
+                                            <option value="1">Published</option>
                                             <option value="0" selected>Unpublished</option>
                                         </select>
                                 </div>
@@ -78,7 +76,10 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Submit <span data-feather="log-out"></span></button>
+                                <a href="/dashboard/articles" class="btn btn-secondary">Back</a>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -86,7 +87,6 @@
         </div>
     </div>    
 @endsection
-
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('vendor/summernote/summernote-bs4.min.css') }}">
