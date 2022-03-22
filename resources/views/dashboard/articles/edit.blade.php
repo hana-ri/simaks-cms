@@ -1,4 +1,3 @@
-{{-- @dd($article) --}}
 @extends('dashboard/layouts/main')
 @section('container')
     <!-- Begin Page Content -->
@@ -34,34 +33,33 @@
                     @else
                         <img class="thumbnail-preview img-fluid mb-3 col-sm-5">
                     @endif
-                    <input class="form-control" type="file" id="thumbnail" name="thumbnail"
-                        onchange="previewThumbnail()">
+                    <input class="form-control" type="file" id="thumbnail" name="thumbnail" onchange="previewThumbnail()">
                     @error('thumbnail')
                         <div class="invalid-feedback"> {{ $message }}</div>
                     @enderror
                 </div>
 
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <label for="category" class="form-label">Category</label>
-                                    <select class="form-select" aria-label="Default select example" name="category_id">
-                                        @foreach ($categories as $category)
-                                            @if (old('category_id', $article->category_id) == $category->id)
-                                                <option value="{{ $category->id }}" selected> {{ $category->name }}</option>
-                                            @else
-                                                <option value="{{ $category->id }}"> {{ $category->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-sm-6">
-                                        <label for="category" class="form-label">Status</label>
-                                        <select class="form-select" aria-label="Default select example" name="is_published">
-                                            <option value="1" {{ $article->is_published == 1 ? 'selected' : '' }}>Published</option>
-                                            <option value="0" {{ $article->is_published != 1 ? 'selected' : '' }}>Unpublished</option>
-                                        </select>
-                                </div>
-                            </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" aria-label="Default select example" name="category_id">
+                            @foreach ($categories as $category)
+                                @if (old('category_id', $article->category_id) == $category->id)
+                                    <option value="{{ $category->id }}" selected> {{ $category->name }}</option>
+                                @else
+                                    <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="category" class="form-label">Status</label>
+                        <select class="form-select" aria-label="Default select example" name="is_published">
+                            <option value="1" {{ $article->is_published == 1 ? 'selected' : '' }}>Published</option>
+                            <option value="0" {{ $article->is_published != 1 ? 'selected' : '' }}>Unpublished</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="mb-3">
                     <label for="body" class="form-label">Content</label>
@@ -102,7 +100,7 @@
             $('#summernote').summernote();
         });
 
-        // Preview image
+        // Preview thumbnail
         function previewThumbnail() {
             const thumbnail = document.querySelector('#thumbnail');
             const thumbnailPreview = document.querySelector('.thumbnail-preview');

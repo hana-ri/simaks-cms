@@ -1,4 +1,3 @@
-
 @extends('dashboard/layouts/main')
 @section('container')
     <div class="container-fluid">
@@ -21,10 +20,10 @@
                                 <a class="dropdown-item" href="/dashboard/articles">Back </a>
                                 <a class="dropdown-item" href="/dashboard/articles/{{ $article->slug }}/edit"> Edit </a>
                                 <div class="dropdown-divider"></div>
-                                <button type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                  Delete
-                                </button>{{-- 
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <button type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal">
+                                    Delete
+                                </button>{{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="dropdown-item"></i>
                                     Delete
                                 </a> --}}
@@ -72,7 +71,8 @@
                             <p><strong>Created on</strong> {{ $article->created_at->toFormattedDateString() }} </p>
                             <p><strong>Last Update on</strong> {{ $article->updated_at->toFormattedDateString() }} </p>
                             <p><strong>Category :</strong> {{ $article->category->name }} </p>
-                            <p><strong>Status :</strong> {{ $article->is_published == true ? 'Published' : 'Unpublished' }} </p>
+                            <p><strong>Status :</strong>
+                                {{ $article->is_published == true ? 'Published' : 'Unpublished' }} </p>
                             <p class="mb-0"><strong>Excerpt</strong></p>
                             <p>{{ $article->excerpt }}</p>
                         </section>
@@ -82,27 +82,27 @@
         </div>
 
 
-<!-- Modal Delete -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Article</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Delete Article "{{ $article->title }}" ?
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-         <form action="/dashboard/articles/{{ $article->slug }}" method="post">
-            @csrf
-            @method('delete')
-            <button class="btn btn-danger" type="submit">Delete <span data-feather="log-out"></span></button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-@endsection
+        <!-- Modal Delete -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Article</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Delete Article "{{ $article->title }}" ?
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <form action="/dashboard/articles/{{ $article->slug }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger" type="submit">Delete <span
+                                    data-feather="log-out"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection

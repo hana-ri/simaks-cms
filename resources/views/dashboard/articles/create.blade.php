@@ -40,7 +40,7 @@
                                 @error('thumbnail')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
-                                
+
                             </div>
 
                             <div class="form-group row">
@@ -49,7 +49,8 @@
                                     <select class="form-select" aria-label="Default select example" name="category_id">
                                         @foreach ($categories as $category)
                                             @if (old('category_id') == $category->id)
-                                                <option value="{{ $category->id }}" selected> {{ $category->name }}</option>
+                                                <option value="{{ $category->id }}" selected> {{ $category->name }}
+                                                </option>
                                             @else
                                                 <option value="{{ $category->id }}"> {{ $category->name }}</option>
                                             @endif
@@ -57,13 +58,13 @@
                                     </select>
                                 </div>
                                 @can('admin')
-                                <div class="col-sm-6">
+                                    <div class="col-sm-6">
                                         <label for="category" class="form-label">Status</label>
                                         <select class="form-select" aria-label="Default select example" name="is_published">
                                             <option value="1">Published</option>
                                             <option value="0" selected>Unpublished</option>
                                         </select>
-                                </div>
+                                    </div>
                                 @endcan
                             </div>
 
@@ -77,7 +78,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Submit <span data-feather="log-out"></span></button>
+                                <button class="btn btn-primary" type="submit">Submit <span
+                                        data-feather="log-out"></span></button>
                                 <a href="/dashboard/articles" class="btn btn-secondary">Back</a>
                             </div>
                         </form>
@@ -85,7 +87,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 @endsection
 
 @push('styles')
@@ -109,7 +111,7 @@
             $('#summernote').summernote();
         });
 
-        // Preview image
+        // Preview thumbnail
         function previewThumbnail() {
             const thumbnail = document.querySelector('#thumbnail');
             const thumbnailPreview = document.querySelector('.thumbnail-preview');

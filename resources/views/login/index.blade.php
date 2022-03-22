@@ -1,6 +1,6 @@
 @extends('layouts/main')
 @section('container')
-<div class="container">
+    <div class="container">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -18,16 +18,22 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
 
                                     </div>
-                                    @if(session()->has('loginError'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                      <strong>{{ session('loginError') }}</strong> please check username or password.
-                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
+                                    @if (session()->has('loginError'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{ session('loginError') }}</strong> please check username or
+                                            password.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
                                     @endif
                                     <form class="user" action="/login" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" value="{{ old('email') }}" >
+                                            <input type="email"
+                                                class="form-control form-control-user @error('email') is-invalid @enderror"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Enter Email Address..." name="email"
+                                                value="{{ old('email') }}">
                                             @error('email')
                                                 <div class="invalid-feedback"> {{ $message }}</div>
                                             @enderror
@@ -39,10 +45,9 @@
                                         <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
                                     </form>
                                     <hr>
-{{--                                     <div class="text-center">
+                                    {{-- <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
- --}}                                    <div class="text-center">
+                                    </div> --}} <div class="text-center">
                                         <p><small>don't have an account yet?</small></p>
                                         <a class="small" href="/register">Create an Account!</a>
                                     </div>
