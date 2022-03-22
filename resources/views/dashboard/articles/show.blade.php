@@ -1,5 +1,5 @@
-@extends('dashboard/layouts/main')
 
+@extends('dashboard/layouts/main')
 @section('container')
     <div class="container-fluid">
         <div class="row">
@@ -22,7 +22,7 @@
                                 <a class="dropdown-item" href="/dashboard/articles/{{ $article->slug }}/edit"> Edit </a>
                                 <div class="dropdown-divider"></div>
                                 <button type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                  delete
+                                  Delete
                                 </button>{{-- 
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="dropdown-item"></i>
@@ -72,6 +72,7 @@
                             <p><strong>Created on</strong> {{ $article->created_at->toFormattedDateString() }} </p>
                             <p><strong>Last Update on</strong> {{ $article->updated_at->toFormattedDateString() }} </p>
                             <p><strong>Category :</strong> {{ $article->category->name }} </p>
+                            <p><strong>Status :</strong> {{ $article->is_published == true ? 'Published' : 'Unpublished' }} </p>
                             <p class="mb-0"><strong>Excerpt</strong></p>
                             <p>{{ $article->excerpt }}</p>
                         </section>

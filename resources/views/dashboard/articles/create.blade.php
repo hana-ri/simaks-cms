@@ -42,19 +42,31 @@
                                 @error('thumbnail')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
+                                
                             </div>
 
-                            <div class="mb-3">
-                                <label for="category" class="form-label">Categori</label>
-                                <select class="form-select" aria-label="Default select example" name="category_id">
-                                    @foreach ($categories as $category)
-                                        @if (old('category_id') == $category->id)
-                                            <option value="{{ $category->id }}" selected> {{ $category->name }}</option>
-                                        @else
-                                            <option value="{{ $category->id }}"> {{ $category->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-select" aria-label="Default select example" name="category_id">
+                                        @foreach ($categories as $category)
+                                            @if (old('category_id') == $category->id)
+                                                <option value="{{ $category->id }}" selected> {{ $category->name }}</option>
+                                            @else
+                                                <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @can('policy', Model::class)
+                                <div class="col-sm-6">
+                                        <label for="category" class="form-label">Status</label>
+                                        <select class="form-select" aria-label="Default select example" name="is_published">
+                                             <option value="1">Published</option>
+                                            <option value="0" selected>Unpublished</option>
+                                        </select>
+                                </div>
+                                @endcan
                             </div>
 
                             <div class="mb-3">
@@ -72,8 +84,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 @endsection
+
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('vendor/summernote/summernote-bs4.min.css') }}">

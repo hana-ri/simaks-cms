@@ -41,8 +41,8 @@
                                     <hr>
 {{--                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div> --}}
-                                    <div class="text-center">
+                                    </div>
+ --}}                                    <div class="text-center">
                                         <p><small>don't have an account yet?</small></p>
                                         <a class="small" href="/register">Create an Account!</a>
                                     </div>

@@ -10,9 +10,7 @@ class Article extends Model
 {
     use HasFactory, Sluggable;
 
-
     protected $guarded = ['id'];
-
 
     // Eiger loading
     protected $with = ['author', 'category'];

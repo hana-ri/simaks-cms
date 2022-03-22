@@ -1,6 +1,9 @@
 @extends('layouts/main')
 
+
 @section('container')
+@include('/partials/navbar')
+
 {{-- Coursel --}}
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -131,7 +134,9 @@
     {{-- <hr class="featurette-divider"> --}}
 </div>
 
+@include('/partials/footer')
 @endsection
+
 
 
 @push('styles')

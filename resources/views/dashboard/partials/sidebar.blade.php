@@ -36,7 +36,7 @@
         </div>
     </li>
 
-    @can('admin',)
+    @can('admin')
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Heading -->

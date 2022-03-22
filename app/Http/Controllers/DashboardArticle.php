@@ -45,10 +45,12 @@ class DashboardArticle extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:articles',
             'category_id' => 'required',
+            'is_published' => 'required',
             'body' => 'required',
             'thumbnail' => 'image|file|max:1024'
         ]);
@@ -108,6 +110,7 @@ class DashboardArticle extends Controller
             'title' => 'required|max:255',
             'category_id' => 'required',
             'body' => 'required',
+            'is_published' => 'required',
             'thumbnail' => 'image|file|max:1024'
         ];
 

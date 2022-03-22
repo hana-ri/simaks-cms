@@ -1,6 +1,7 @@
 @extends('layouts/main')
 
 @section('container')
+@include('/partials/navbar')
 <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
@@ -85,4 +86,5 @@
                 </div>
             </div>
         </div>
+@include('/partials/footer')
 @endsection

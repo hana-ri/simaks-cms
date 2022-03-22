@@ -1,6 +1,8 @@
 @extends('layouts/main')
 
 @section('container')
+@include('/partials/navbar')
+
 <div class="container my-5">
     <div class="row">
         <div class="col-md-8">
@@ -21,4 +23,6 @@
         </div>
     </div>
 </div>
+
+@include('/partials/footer')
 @endsection('container')

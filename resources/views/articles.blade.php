@@ -1,6 +1,8 @@
 @extends('layouts/main')
 
 @section('container')
+@include('/partials/navbar')
+
     <div class="container my-3">
         {{-- Search Navigation --}}
         <div class="row justify-content-center mt-3">
@@ -8,7 +10,7 @@
                 <div class="card mb-4">
                     <div class="card-header text-center bg-dark text-white h4">Search Article</div>
                     <div class="card-body">
-                        <form action="/blog/">
+                        <form action="/blog">
                             @if(request('category'))
                                 <input type="hidden" name="category" value="{{ request('category') }}">
                             @elseif(request('author'))
@@ -27,6 +29,7 @@
         <div class="row">
             <div class="col-lg-8">
 
+                @if ($articles[0]!=null)
                 {{-- Highlight article --}}
                 <div class="card mb-3">
                   <img src="https://source.unsplash.com/850x350/?{{ $articles[0]->category->name }}" class="card-img-top" alt="...">
@@ -55,8 +58,9 @@
                     @endforeach
                 </div>
             </div>
-
-            {{-- @dd($articles) --}}
+            @else
+                <p>Not found</p>
+            @endif
 
             <div class="col-lg-4">
                 <!-- Categories widget-->
@@ -89,4 +93,6 @@
         </div>
 
     </div>
+
+@include('/partials/footer')
 @endsection

@@ -14,11 +14,11 @@
 </head>
     <body>
 
-        @include('/partials/navbar')
+        {{-- @include('/partials/navbar') --}}
 
             @yield('container')
 
-        @include('/partials/footer')
+        {{-- @include('/partials/footer') --}}
         <!-- BS5 JavaScript -->
         <script type="text/javascript" src="{{ asset('vendor/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>
         

@@ -18,7 +18,7 @@ class ArticleController extends Controller
 	public function articles()
     {
 
-		$page = "";
+		$page = "Articles";
 
 		if (request('category')) {
 			$category = Category::firstWhere('slug', request('category'));
@@ -31,8 +31,9 @@ class ArticleController extends Controller
 		}
 
 		return view('articles',  [
-	    	"page" => "Article " . $page,
+	    	"page" => $page,
 	        "articles" => Article::latest()
+	        				->where('is_published', true)
 	        				->filter(request(['search', 'category']))
 	        				->paginate(5)
 	        				->withQueryString()
@@ -45,10 +46,14 @@ class ArticleController extends Controller
 	*/
 	public function article(Article $article)
 	{
-		return view('article', [
-			"page" => $article->title,
-	        "article" => $article
-    	]);
+		if ($article->is_published) {
+			return view('article', [
+				"page" => 'Simaks Article',
+	        	"article" => $article
+    		]);
+		} else {
+			return redirect('/blog/articles');
+		}		
 	}
 
     /**
@@ -58,7 +63,10 @@ class ArticleController extends Controller
 	public function author(User $author) {
 		return view('articles', [
 			"page" => 'author',
-			"articles" => $author->articles()->latest()->paginate(5),
+			"articles" => $author->articles()
+							->where('is_published', true)
+							->latest()
+							->paginate(5),
 		]);
 	}
 
