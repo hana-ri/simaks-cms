@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Intervention\Image\ImageManagerStatic as Image;
 
 use App\Models\Article;
 use App\Models\Category;
@@ -45,7 +46,7 @@ class DashboardArticle extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:articles',
@@ -62,6 +63,40 @@ class DashboardArticle extends Controller
         $validatedData['user_id'] = auth()->user()->id;
 
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 160);
+
+
+        // Summernote images upload
+        $storage = 'storage/article-images';
+        $content = $request->body;
+        $dom = new \DomDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $images = $dom->getElementsByTagName('img');
+
+
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if (preg_match('/data:image/', $src)) {
+                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                $mimeType = $groups['mime'];
+                $fileNameContent = uniqid();
+                $fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
+                $filePath = ("$storage/$fileNameContentRand.$mimeType");
+                $image = Image::make($src)
+                            // ->resize(900, 400)
+                            ->encode($mimeType, 100)
+                            ->save(public_path($filePath));
+                $new_src = asset($filePath);
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $new_src);
+                $img->setAttribute('class', 'img-responsive');
+            }
+        }
+
+        $body = $dom->saveHTML();
+
+        $validatedData['body'] = $body;
 
         Article::create($validatedData);
 
@@ -89,6 +124,8 @@ class DashboardArticle extends Controller
      */
     public function edit(Article $article)
     {
+        dd($article->body);
+
 
         return view('/dashboard/articles/edit', [
             'article' => $article,
@@ -131,6 +168,38 @@ class DashboardArticle extends Controller
 
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 250);
 
+        // Summernote images upload
+        $storage = 'storage/article-images';
+        $content = $request->body;
+        $dom = new \DomDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $images = $dom->getElementsByTagName('img');
+
+
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if (preg_match('/data:image/', $src)) {
+                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                $mimeType = $groups['mime'];
+                $fileNameContent = uniqid();
+                $fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
+                $filePath = ("$storage/$fileNameContentRand.$mimeType");
+                $image = Image::make($src)
+                            // ->resize(900, 400)
+                            ->encode($mimeType, 100)
+                            ->save(public_path($filePath));
+                $new_src = asset($filePath);
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $new_src);
+                $img->setAttribute('class', 'img-responsive');
+            }
+        }
+
+        $body = $dom->saveHTML();
+
+        $validatedData['body'] = $body;
 
         Article::updateOrCreate(
             ['id' => $article->id, 'user_id' => auth()->user()->id],
