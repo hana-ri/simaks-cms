@@ -124,9 +124,6 @@ class DashboardArticle extends Controller
      */
     public function edit(Article $article)
     {
-        dd($article->body);
-
-
         return view('/dashboard/articles/edit', [
             'article' => $article,
             'categories' => Category::all(),
