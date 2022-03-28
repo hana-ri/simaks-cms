@@ -163,6 +163,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Package SEO ...
+         */
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
 
