@@ -88,3 +88,7 @@
         </div>
 @include('/partials/footer')
 @endsection
+
+@push('seo')
+    {!! SEO::generate() !!}
+@endpush

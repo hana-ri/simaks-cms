@@ -134,9 +134,6 @@
 
 @include('/partials/footer')
 @endsection
-
-
-
 @push('styles')
 <style>
     .bd-placeholder-img {
@@ -153,4 +150,10 @@
         }
     }
 </style>
+@endpush
+@push('pageTitle')
+    <title>Home</title>
+@endpush
+@push('seo')
+    {!! SEO::generate() !!}
 @endpush

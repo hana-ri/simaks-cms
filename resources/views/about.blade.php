@@ -52,3 +52,6 @@
     </div>
 @include('/partials/footer')
 @endsection('container')
+@push('pageTitle')
+    <title>About</title>
+@endpush

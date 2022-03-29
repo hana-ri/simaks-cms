@@ -1,9 +1,6 @@
 @extends('layouts/main')
-
 @section('container')
-
     <div class="container">
-
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -62,11 +59,11 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 @endsection
-
+@push('pageTitle')
+    <title>Register</title>
+@endpush
 @push('styles')
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
