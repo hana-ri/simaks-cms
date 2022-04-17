@@ -15,7 +15,7 @@ class ArticleController extends Controller
 	* funsi menangani kontrol dari artikel-artikel
 	* @return mengembalikan halaman berserta data yang dibutuhkan
 	*/
-	public function articles()
+	public function index()
     {
 
 		$page = "Articles";

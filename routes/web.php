@@ -42,7 +42,7 @@ Route::get('/about', function () {
 *
 * @param  App\Http\Controllers\ArticleController;
 */
-Route::get('/blog', [ArticleController::class, 'articles']);
+Route::get('/blog', [ArticleController::class, 'index']);
 Route::get('/blog/author/{author:username}', [ArticleController::class, 'author']);
 Route::get('/blog/category/{category:slug}', [ArticleController::class, 'category']);
 Route::get('/blog/{article:slug}', [ArticleController::class, 'article']);
