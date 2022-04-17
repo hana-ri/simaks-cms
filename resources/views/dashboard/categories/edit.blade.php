@@ -7,7 +7,7 @@
       <form action="/dashboard/categories/{{ $category->slug }}" method="post">
             <div class="modal-body">
               @csrf
-              @method('PUT')
+              @method('put')
               <div class="mb-3">
                 <label for="nameLabel" class="form-label">Name</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="nameLabel" aria-describedby="name" name="name" value="{{ old('name', $category->name) }}" required>
