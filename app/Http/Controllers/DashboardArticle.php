@@ -51,7 +51,6 @@ class DashboardArticle extends Controller
 			'title' => 'required|max:255',
 			'slug' => 'required|unique:articles',
 			'category_id' => 'required',
-			'is_published' => 'required',
 			'body' => 'required',
 			'thumbnail' => 'image|file|max:1024'
 		]);

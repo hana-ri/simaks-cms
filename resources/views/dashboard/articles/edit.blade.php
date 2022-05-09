@@ -55,11 +55,13 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6">
-                                        <label for="category" class="form-label">Status</label>
-                                        <select class="form-select" aria-label="Default select example" name="is_published">
-                                            <option value="1" {{ $article->is_published == 1 ? 'selected' : '' }}>Published</option>
-                                            <option value="0" {{ $article->is_published != 1 ? 'selected' : '' }}>Unpublished</option>
-                                        </select>
+                                    @can('admin')
+                                    <label for="category" class="form-label">Status</label>
+                                    <select class="form-select" aria-label="Default select example" name="is_published">
+                                        <option value="1">Published</option>
+                                        <option value="0" selected>Unpublished</option>
+                                    </select>
+                                    @endcan
                                 </div>
                             </div>
 

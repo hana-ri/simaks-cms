@@ -27,7 +27,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-md-12 col-md-8">
 
                 @if ($articles[0]!=null)
                 {{-- Highlight article --}}
@@ -62,7 +62,7 @@
                 <p>Not found</p>
             @endif
 
-            <div class="col-lg-4">
+            {{-- <div class="col-lg-4">
                 <!-- Categories widget-->
                 <div class="card mb-4">
                     <div class="card-header bg-dark text-white">Categories</div>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- Pagenation --}}
         <div class="d-flex justify-content-center mt-3">
