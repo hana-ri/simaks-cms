@@ -153,10 +153,6 @@
 
     @include('/partials/footer')
 @endsection
-<<<<<<< HEAD
-
-=======
->>>>>>> new-feature
 @push('styles')
     <style>
         .bd-placeholder-img {
@@ -172,9 +168,6 @@
                 font-size: 3.5rem;
             }
         }
-<<<<<<< HEAD
-    </style>
-=======
     }
 </style>
 @endpush
@@ -183,5 +176,4 @@
 @endpush
 @push('seo')
     {!! SEO::generate() !!}
->>>>>>> new-feature
 @endpush

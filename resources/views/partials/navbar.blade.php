@@ -47,16 +47,6 @@
                             </ul>
                         </li>
                     </ul>
-                @else
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link {{ $page === 'Login' ? 'active' : '' }}" aria-current="page"
-                                href="/login">Login <i class="bi bi-box-arrow-in-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
             @else
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">

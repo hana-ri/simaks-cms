@@ -49,13 +49,8 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    @include('/partials/footer')
-@endsection('container')
-=======
 @include('/partials/footer')
 @endsection('container')
 @push('pageTitle')
     <title>About</title>
 @endpush
->>>>>>> new-feature
