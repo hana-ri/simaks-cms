@@ -1,8 +1,6 @@
 @extends('layouts/main')
-
 @section('container')
     <div class="container">
-
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -60,21 +58,22 @@
                                 <button class="btn btn-primary btn-user btn-block">Register Account</button>
                             </form>
                             <hr>
-                            <div class="text-center">
+                            {{-- <div class="text-center">
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
+                            </div> --}}
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="/login">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
-
+@push('pageTitle')
+    <title>Register</title>
+@endpush
 @push('styles')
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

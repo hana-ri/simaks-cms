@@ -99,6 +99,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    @include('/partials/footer')
+@include('/partials/footer')
 @endsection
+
+@push('seo')
+    {!! SEO::generate() !!}
+@endpush

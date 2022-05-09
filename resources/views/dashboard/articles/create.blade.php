@@ -57,15 +57,15 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @can('admin')
-                                    <div class="col-sm-6">
+                                <div class="col-sm-6">
+                                        @can('admin')
                                         <label for="category" class="form-label">Status</label>
                                         <select class="form-select" aria-label="Default select example" name="is_published">
                                             <option value="1">Published</option>
                                             <option value="0" selected>Unpublished</option>
                                         </select>
-                                    </div>
-                                @endcan
+                                        @endcan
+                                </div>
                             </div>
 
                             <div class="mb-3">

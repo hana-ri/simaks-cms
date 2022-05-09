@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Ramsey\Uuid\Uuid;
+
 class CategoryController extends Controller
 {
     /**
@@ -39,6 +41,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'name' => 'required|max:60',
             'slug' => 'required|unique:categories',

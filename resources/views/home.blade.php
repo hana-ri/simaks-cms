@@ -1,5 +1,4 @@
 @extends('layouts/main')
-
 @section('container')
     @include('/partials/navbar')
 
@@ -154,7 +153,10 @@
 
     @include('/partials/footer')
 @endsection
+<<<<<<< HEAD
 
+=======
+>>>>>>> new-feature
 @push('styles')
     <style>
         .bd-placeholder-img {
@@ -170,5 +172,16 @@
                 font-size: 3.5rem;
             }
         }
+<<<<<<< HEAD
     </style>
+=======
+    }
+</style>
+@endpush
+@push('pageTitle')
+    <title>Home</title>
+@endpush
+@push('seo')
+    {!! SEO::generate() !!}
+>>>>>>> new-feature
 @endpush
