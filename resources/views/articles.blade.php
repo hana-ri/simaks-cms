@@ -34,8 +34,11 @@
                 @if ($articles[0] != null)
                     {{-- Highlight article --}}
                     <div class="card mb-3">
-                        <img src="https://source.unsplash.com/850x350/?{{ $articles[0]->category->name }}"
-                            class="card-img-top" alt="...">
+                        @if ($articles[0]->thumbnail)
+                            <img src="{{ asset('storage/' . $articles[0]->thumbnail) }}" class="card-img-top" alt="...">
+                        @else
+                            <img src="https://source.unsplash.com/700x350/?{{ $articles[0]->category->name }}" class="card-img-top" alt="...">
+                        @endif
                         <div class="card-body">
                             <div class="small text-muted">{{ $articles[0]->created_at->diffForHumans() }} By
                                 {{ $articles[0]->author->name }}</div>
@@ -50,8 +53,11 @@
                         @foreach ($articles->skip(1) as $article)
                             <div class="col-lg-6 mb-3">
                                 <div class="card h-100 mb-3">
-                                    <img src="https://source.unsplash.com/700x350/?{{ $article->category->name }}"
-                                        class="card-img-top" alt="...">
+                                    @if ($article->thumbnail)
+                                        <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
+                                    @else
+                                        <img src="https://source.unsplash.com/700x350/?{{ $article->category->name }}" class="card-img-top" alt="...">
+                                    @endif
                                     <div class="card-body">
                                         <div class="small text-muted">{{ $article->created_at->diffForHumans() }} By
                                             {{ $article->author->name }}</div>

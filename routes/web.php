@@ -24,7 +24,12 @@ use App\Models\Category;
 |
 */
 
+// Route::get('/', function () {
+//     return redirect('/login');
+// });
+
 Route::get('/', function () {
+    return redirect('login');
     return view('home',  [
     	"page" => "Home"
     ]);
@@ -76,13 +81,13 @@ Route::post('/register', [RegisterController::class, 'store']);
 * @param  App\Http\Controllers\RegisterController;
 */
 Route::get('/dashboard', function() { 
-	return view('dashboard/index');
+	    return view('dashboard/index');
     })->middleware('auth');
 
 Route::get('/dashboard/articles/checkSlug', [DashboardArticle::class, 'checkSlug']);
 
-Route::resource('/dashboard/articles', DashboardArticle::class)
-        ->middleware('auth');
+// Route::resource('/dashboard/articles', DashboardArticle::class)
+//         ->middleware('auth');
 
 Route::resource('/dashboard/categories', CategoryController::class)
         ->except(['show', 'create'])
