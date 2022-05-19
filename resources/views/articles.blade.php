@@ -8,7 +8,7 @@
         <div class="row justify-content-center mt-3">
             <div class="col-lg">
                 <div class="card mb-4">
-                    <div class="card-header text-center bg-dark text-white h4">Search Article</div>
+                    <div class="card-header text-center bg-primary text-white h4">Search Article</div>
                     <div class="card-body">
                         <form action="/blog">
                             @if (request('category'))
@@ -20,7 +20,7 @@
                                 <input class="form-control" type="text"
                                     placeholder="Input the title or content of article..." aria-label="Search" name="search"
                                     value="{{ request('search') }}">
-                                <button class="btn btn-dark" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit">Search</button>
                             </div>
                         </form>
                     </div>
@@ -44,7 +44,7 @@
                                 {{ $articles[0]->author->name }}</div>
                             <h1 class="card-title">{{ $articles[0]->title }}</h1>
                             <p class="card-text">{{ $articles[0]->excerpt }}</p>
-                            <a href="/blog/{{ $articles[0]->slug }}" class="btn btn-dark">Read more →</a>
+                            <a href="/blog/{{ $articles[0]->slug }}" class="btn btn-primary">Read more →</a>
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                                             {{ $article->author->name }}</div>
                                         <h5 class="card-title">{{ $article->title }}</h5>
                                         <p class="card-text">{{ $article->excerpt }}</p>
-                                        <a href="/blog/{{ $article->slug }}" class="btn btn-dark">Read more →</a>
+                                        <a href="/blog/{{ $article->slug }}" class="btn btn-primary">Read more →</a>
                                     </div>
                                 </div>
                             </div>

@@ -93,7 +93,7 @@
             <div class="col-lg-4">
                 <!-- Side widget-->
                 <div class="card mb-4">
-                    <div class="card-header bg-dark text-white h5 text-center">Abstrack</div>
+                    <div class="card-header bg-light h5 text-center">Ads/Widget</div>
                     <div class="card-body">You can put anything you want inside of these side widgets. They are easy to
                         use, and feature the Bootstrap 5 card component!</div>
                 </div>

@@ -1,4 +1,4 @@
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/">SIMAKS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -6,25 +6,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item text-center">
+                        <a class="nav-link {{ Request::is('/') ? 'text-primary' : '' }}" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('blog') ? 'active' : '' }}" href="/blog">Articles</a>
+                    <li class="nav-item text-center">
+                        <a class="nav-link {{ Request::is('blog') ? 'text-primary' : '' }}" href="/blog">Articles</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('blog/topics/list') ? 'active' : '' }}"
+                    <li class="nav-item text-center">
+                        <a class="nav-link {{ Request::is('blog/topics/list') ? 'text-primary' : '' }}"
                             href="/blog/topics/list">Category</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
+                    <li class="nav-item text-center">
+                        <a class="nav-link {{ Request::is('about') ? 'text-primary' : '' }}" href="/about">About</a>
                     </li>
                 </ul>
                 @auth
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDarkDropdownMenuLink"
+                            <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDarkDropdownMenuLink"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"> Hi,
                                 {{ auth()->user()->name }}
                             </a>
@@ -47,13 +47,15 @@
                             </ul>
                         </li>
                     </ul>
-            @else
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link {{ (Request::is('login') ? 'active' : '') ? "active" : "" }}" aria-current="page" href="/login">Login <i class="bi bi-box-arrow-in-right"></i>
-                    </a>
-                </li>
-            </ul>
-            @endauth
+                @else
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="/login" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/register" class="nav-link btn btn-primary text-white">Register</a>
+                        </li>
+                    </ul>
+                @endauth
         </div>
     </nav>

@@ -1,5 +1,5 @@
-<footer class="py-3 bg-dark">
+<footer class="py-3 bg-light border-top border-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+        <p class="m-0 text-center">Copyright &copy; SIMAKS 2022</p>
     </div>
 </footer>

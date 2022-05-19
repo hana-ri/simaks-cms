@@ -4,7 +4,7 @@
 @include('/partials/navbar')
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12 col-md-8">
             <div class="list-group">
                 <h1 class="display-6 text-muted text-center">Categories</h1>
                 @foreach($categories as $category)

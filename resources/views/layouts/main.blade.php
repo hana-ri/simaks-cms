@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-5.1.3-dist/css/bootstrap.min.css') }}">
     @stack('styles')
 </head>
-    <body>
+    <body class="my-bg-color">
         @yield('container')
         <!-- BS5 JavaScript -->
         <script type="text/javascript" src="{{ asset('vendor/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>

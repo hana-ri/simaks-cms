@@ -29,7 +29,6 @@ use App\Models\Category;
 // });
 
 Route::get('/', function () {
-    return redirect('login');
     return view('home',  [
     	"page" => "Home"
     ]);
@@ -86,8 +85,8 @@ Route::get('/dashboard', function() {
 
 Route::get('/dashboard/articles/checkSlug', [DashboardArticle::class, 'checkSlug']);
 
-// Route::resource('/dashboard/articles', DashboardArticle::class)
-//         ->middleware('auth');
+Route::resource('/dashboard/articles', DashboardArticle::class)
+        ->middleware('auth');
 
 Route::resource('/dashboard/categories', CategoryController::class)
         ->except(['show', 'create'])
