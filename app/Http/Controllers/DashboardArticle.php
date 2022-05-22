@@ -47,14 +47,25 @@ class DashboardArticle extends Controller
 	public function store(Request $request)
 	{
 
-		$validatedData = $request->validate([
+		// $validatedData = $request->validate([
+		// 	'title' => 'required|max:255',
+		// 	'slug' => 'required|unique:articles',
+		// 	'is_published' => 'required',
+		// 	'category_id' => 'required',
+		// 	'body' => 'required',
+		// 	'thumbnail' => 'image|file|max:1024'
+		// ]);
+
+		$rules = [
 			'title' => 'required|max:255',
 			'slug' => 'required|unique:articles',
-			'is_published' => 'required',
 			'category_id' => 'required',
 			'body' => 'required',
+			'is_published' => 'required',
 			'thumbnail' => 'image|file|max:1024'
-		]);
+		];
+
+		$validatedData = $request->validate($rules);
 
 		if ($request->file('thumbnail')) {
 			$newFileName = time().substr(md5($request->file('thumbnail')), 6, 6);

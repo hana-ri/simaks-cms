@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(5)->create();
 
-        // Article::factory(50)->create();
+        Article::factory(50)->create();
 
         Category::factory(5)->create();
 
