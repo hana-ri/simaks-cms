@@ -50,6 +50,7 @@ class DashboardArticle extends Controller
 		$validatedData = $request->validate([
 			'title' => 'required|max:255',
 			'slug' => 'required|unique:articles',
+			'is_published' => 'required',
 			'category_id' => 'required',
 			'body' => 'required',
 			'thumbnail' => 'image|file|max:1024'

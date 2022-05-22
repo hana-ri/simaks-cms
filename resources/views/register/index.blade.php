@@ -6,7 +6,7 @@
                 <!-- Nested Row within Card Body -->
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-block ">
-                        <img src="http://tekom.kd-cibiru.upi.edu/wp-content/uploads/2021/01/LOGO-HIMA-TEKKOM-1-RIFQI-ALAMSYAH-02-289x300.png" class="img-fluid center-block d-block mx-auto" style="max-width: 100%; and height: auto;" alt="...">
+                        <img src="{{ asset('/img/logo.png') }}" class="img-fluid center-block d-block mx-auto" style="max-width: 100%; and height: auto;" alt="...">
                     </div>
                     <div class="col-lg-7">
                         <div class="p-5">
