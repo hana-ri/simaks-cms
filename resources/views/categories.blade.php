@@ -5,8 +5,8 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-12 col-md-8">
+          <h1 class="display-6 text-muted text-center mb-5"><strong>Categories</strong></h1>
             <div class="list-group">
-                <h1 class="display-6 text-muted text-center">Categories</h1>
                 @foreach($categories as $category)
                   <a href="/blog?category={{ $category->slug }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                     <img src="{{ asset('img/undraw_profile.svg') }}" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">

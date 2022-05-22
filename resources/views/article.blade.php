@@ -18,7 +18,7 @@
                         </div>
                         <!-- Post categories-->
                         <a class="badge bg-primary text-decoration-none link-light"
-                            href="/blog?category={{ $article->category->slug }}">Web Design</a>
+                            href="/blog?category={{ $article->category->slug }}">{{ $article->category->name }}</a>
                     </header>
                     <!-- Preview image figure-->
 

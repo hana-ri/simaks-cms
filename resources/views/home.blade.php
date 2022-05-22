@@ -12,47 +12,41 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                {{-- <svg class="my-c-bg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
                     <rect width="100%" height="100%" fill="#777" />
-                </svg>
+                </svg> --}}
+                <img src="{{ asset("/img/kampus_cibiru.png") }}" class="img-fluid" alt="...">
                 <div class="container">
                     <div class="carousel-caption text-center">
-                        <h1>Example headline.</h1>
-                        <p>Some representative placeholder content for the first slide of the carousel.</p>
+                        <h1>SIMAKS</h1>
+                        <p>Sistem Manajemen Konten Sederhana, merupakan perangkat lunak yang dapat digunakan untuk menyediakan layanan management konten dengan sederhana untuk kemudahan penggunaan dan pengembangan.</p>
                         <p>
-                            <a class="btn btn-lg btn-primary" href="/blog">Browse articles</a>
+                            <a class="btn btn-lg btn-primary" href="/blog">Find posts</a>
                         </p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <rect width="100%" height="100%" fill="#777" />
-                </svg>
+                <img src="{{ asset("/img/kampus_cibiru_2.png") }}" class="img-fluid" alt="...">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>Another example headline.</h1>
                         <p>Some representative placeholder content for the second slide of the carousel.</p>
-                        {{-- <p>
+                        <p>
                             <a class="btn btn-lg btn-primary" href="#">Learn more</a>
-                        </p> --}}
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <rect width="100%" height="100%" fill="#777" />
-                </svg>
+                <img src="{{ asset("/img/kampus_cibiru_3.png") }}" class="img-fluid" alt="...">
                 <div class="container">
                     <div class="carousel-caption text-center">
-                        <h1>One more for good measure.</h1>
-                        <p>Some representative placeholder content for the third slide of this carousel.</p>
-                        {{-- <p>
-                            <a class="btn btn-lg btn-primary" href="#">Browse Articles</a>
-                        </p> --}}
+                        <h1>About us.</h1>
+                        <p>Berkenalan lebih jauh dengan team yang membangung simaks padahalam berikut.</p>
+                        <p>
+                            <a class="btn btn-lg btn-primary" href="/about">About us</a>
+                        </p>
                     </div>
                 </div>
             </div>

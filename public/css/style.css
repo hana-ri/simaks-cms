@@ -84,3 +84,7 @@
 .my-bg-color {
   background-color: #f0f2f5;
 }
+
+.my-c-bg {
+  background-image: url("img/kampus_cibiru.jpg");
+}

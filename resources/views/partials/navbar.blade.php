@@ -28,7 +28,7 @@
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"> Hi,
                                 {{ auth()->user()->name }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item" href="/dashboard">
                                         <i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard </a>

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             "name" => "dimas",
             "username" => 'dimas',
             "email" => "dimas@gmail.com",
-            "password" => bcrypt("Ggwp2001"),
+            "password" => bcrypt(ENV('seedPWD')),
             "is_admin" => true,
             "is_actived" => true
         ]);
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             "name" => "rifty",
             "username" => 'rifty',
             "email" => "rifty@gmail.com",
-            "password" => bcrypt("Ggwp2001"),
+            "password" => bcrypt(ENV('seedPWD')),
             "is_admin" => true,
             "is_actived" => true
         ]);
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             "name" => "rizal",
             "username" => 'rizal',
             "email" => "rizal@gmail.com",
-            "password" => bcrypt("Ggwp2001"),
+            "password" => bcrypt(ENV('seedPWD')),
             "is_admin" => true,
             "is_actived" => true
         ]);

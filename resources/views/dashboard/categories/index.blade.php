@@ -2,7 +2,7 @@
 @section('container')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12 col-md-8">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -11,8 +11,9 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success mb-4" data-toggle="modal"
-                            data-target="#createModal">Create new category</button>
+                        <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#createModal">
+                            Create new category
+                        </button>
                         <div class="row">
                             <div class="col">
                                 @foreach ($categories as $category)
@@ -30,9 +31,8 @@
                                                 <p>{{ $category->description }}</p>
                                                 <a href="/dashboard/categories/{{ $category->slug }}/edit"
                                                     class="btn btn-warning text-white">Edit</a>
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal"
-                                                    data-bs-whatever="{{ $category->slug }}">Delete</button>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{ $category->slug }}">Delete</button>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -46,75 +46,51 @@
         </div>
     </div>
 
-<!-- Modal -->
-<!-- Create Modal-->
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <!-- Create Modal-->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createLabel">Create category</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
+                <h5 class="modal-title" id="createModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          <form action="/dashboard/categories" method="post">
             <div class="modal-body">
-              @csrf
-              <div class="mb-3">
-                <label for="nameLabel" class="form-label">Name</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="nameLabel" aria-describedby="name" name="name" value="{{ old('name') }}">
-                @error('name')
-                  <div class="invalid-feedback"> {{ $message }}</div>
-                @enderror
-              </div>
-              <div class="mb-3">
-                <label for="slugLabel" class="form-label">Slug</label>
-                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slugLabel" aria-describedby="name" name="slug" value="{{ old('slug') }}" readonly>
-                @error('name')
-                  <div class="invalid-feedback"> {{ $message }}</div>
-                @enderror
-              </div>
-              <div class="mb-3">
-                <label for="Description" class="form-label">Description</label>
-                <input type="text" class="form-control @error('description') is-invalid @enderror" id="Description" aria-describedby="name" name="description" value="{{ old('description') }}" placeholder="Description mask 250 character">
-                @error('name')
-                  <div class="invalid-feedback"> {{ $message }}</div>
-                @enderror
-              </div>
+                <form action="/dashboard/categories" method="POST" id="categoryForm">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nameLabel" class="form-label">Name</label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="nameLabel" aria-describedby="name" name="name" value="{{ old('name') }}" required>
+                        @error('name')
+                        <div class="invalid-feedback"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="slugLabel" class="form-label">Slug</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slugLabel" aria-describedby="name" name="slug" value="{{ old('slug') }}" required readonly>
+                        @error('slug')
+                        <div class="invalid-feedback"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="Description" aria-describedby="name" name="description" value="{{ old('description') }}" placeholder="Description mask 250 character" required>
+                        @error('description')
+                        <div class="invalid-feedback"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="submit">Submit <span data-feather="log-out"></span></button>
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitButton">Create</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+        </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <!-- Delete Modal-->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body modal-delete">
-                    <div class="mb-3">
-                        <p class="modal-p"></p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form class="myForm" action="" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('dashboard/partials/deleteModal')
+    
+
 @endsection
 
 @push('scripts')
@@ -127,22 +103,11 @@
                 .then(response => response.json())
                 .then(data => slug.value = data.slug);
         });
-    </script>
 
-    <script>
-        let deleteModal = document.getElementById('deleteModal');
-        deleteModal.addEventListener('show.bs.modal', function(event) {
-            
-            let button = event.relatedTarget;
-
-            let recipient = button.getAttribute('data-bs-whatever');
-
-            let modalParagraph = deleteModal.querySelector('.modal-p');
-            let modalFormAction = deleteModal.querySelector('.myForm');
-            let title = recipient.replaceAll("-", " ");
-
-            modalParagraph.textContent = `Delete category "${title}" ?`;
-            modalFormAction.action = `/dashboard/categories/${recipient}`;
+        $(document).ready(function() {
+            $("#submitButton").click(function() {
+                $("#categoryForm").submit();
+            });
         });
     </script>
 @endpush

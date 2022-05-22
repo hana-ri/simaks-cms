@@ -21,7 +21,7 @@
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
-
+                            
                             <div class="mb-3">
                                 <label for="slugLabel" class="form-label">Slug</label>
                                 <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slugLabel"
@@ -34,7 +34,8 @@
                             <div class="mb-3">
                                 <label for="thumbnail"
                                     class="form-label @error('thumbnail') is-invalid @enderror">Thumbnail</label>
-                                <image class="thumbnail-preview img-fluid mb-3 col-sm-5"></image>
+                                    <img class="thumbnail-preview img-fluid mb-3 col-sm-5">
+                                {{-- <image class="thumbnail-preview img-fluid mb-3 col-sm-5"></image> --}}
                                 <input class="form-control" type="file" id="thumbnail" name="thumbnail"
                                     onchange="previewThumbnail()">
                                 @error('thumbnail')
