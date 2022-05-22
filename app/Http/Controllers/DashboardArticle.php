@@ -68,37 +68,37 @@ class DashboardArticle extends Controller
 
 
 		// Summernote images upload
-		$storage = 'storage/article-images';
-		$content = $request->body;
-		$dom = new \DomDocument();
-		libxml_use_internal_errors(true);
-		$dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-		libxml_clear_errors();
-		$images = $dom->getElementsByTagName('img');
+		// $storage = 'storage/article-images';
+		// $content = $request->body;
+		// $dom = new \DomDocument();
+		// libxml_use_internal_errors(true);
+		// $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		// libxml_clear_errors();
+		// $images = $dom->getElementsByTagName('img');
 
 
-		foreach ($images as $img) {
-			$src = $img->getAttribute('src');
-			if (preg_match('/data:image/', $src)) {
-				preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-				$mimeType = $groups['mime'];
-				$fileNameContent = uniqid();
-				$fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
-				$filePath = ("$storage/$fileNameContentRand.$mimeType");
-				$image = Image::make($src)
-							// ->resize(900, 400)
-							->encode($mimeType, 100)
-							->save(public_path($filePath));
-				$new_src = asset($filePath);
-				$img->removeAttribute('src');
-				$img->setAttribute('src', $new_src);
-				$img->setAttribute('class', 'img-responsive');
-			}
-		}
+		// foreach ($images as $img) {
+		// 	$src = $img->getAttribute('src');
+		// 	if (preg_match('/data:image/', $src)) {
+		// 		preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+		// 		$mimeType = $groups['mime'];
+		// 		$fileNameContent = uniqid();
+		// 		$fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
+		// 		$filePath = ("$storage/$fileNameContentRand.$mimeType");
+		// 		$image = Image::make($src)
+		// 					// ->resize(900, 400)
+		// 					->encode($mimeType, 100)
+		// 					->save(public_path($filePath));
+		// 		$new_src = asset($filePath);
+		// 		$img->removeAttribute('src');
+		// 		$img->setAttribute('src', $new_src);
+		// 		$img->setAttribute('class', 'img-responsive');
+		// 	}
+		// }
 
-		$body = $dom->saveHTML();
+		// $body = $dom->saveHTML();
 
-		$validatedData['body'] = $body;
+		// $validatedData['body'] = $body;
 
 		Article::create($validatedData);
 
