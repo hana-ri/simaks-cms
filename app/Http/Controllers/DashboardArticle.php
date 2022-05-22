@@ -100,8 +100,6 @@ class DashboardArticle extends Controller
 
 		$validatedData['body'] = $body;
 
-		return $validatedData;
-
 		Article::create($validatedData);
 
 		return redirect('/dashboard/articles')->with('success', 'Article created');
