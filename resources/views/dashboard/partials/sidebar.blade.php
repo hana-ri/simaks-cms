@@ -34,8 +34,10 @@
                 <h6 class="collapse-header">Option:</h6>
                 <a class="collapse-item {{ Request::is('dashboard/articles') ? 'active' : '' }}"
                     href="/dashboard/articles">Articles</a>
-                <a class="collapse-item {{ Request::is('dashboard/categories') ? 'active' : '' }}"
+                @can('admin')
+                    <a class="collapse-item {{ Request::is('dashboard/categories') ? 'active' : '' }}"
                     href="/dashboard/categories">Categories</a>
+                @endcan
             </div>
         </div>
     </li>

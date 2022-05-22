@@ -65,6 +65,8 @@
                                             <option value="1">Published</option>
                                             <option value="0" selected>Unpublished</option>
                                         </select>
+                                        @else
+                                            <input type="hidden" name="is_published" value="0">
                                         @endcan
                                 </div>
                             </div>
