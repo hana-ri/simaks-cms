@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Redirect,Response;
+
 use Ramsey\Uuid\Uuid;
 
 class CategoryController extends Controller
@@ -72,9 +74,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('dashboard/categories/edit', [
-            'category' => $category,
-        ]);
+        return Response::json($category);
     }
 
     /**

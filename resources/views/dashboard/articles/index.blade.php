@@ -1,113 +1,70 @@
 @extends('dashboard/layouts/main')
 @section('container')
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
-<!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Users</h6>
-            </div>
-            <div class="card-body">
-                <div class="my-3">
-                    <a href="/dashboard/articles/create" class="btn btn-success">
-                        <span class="text">Create Post</span>
-                    </a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Title</th>
-                                <th>Categories</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($articles as $article)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $article->title }}</td>
-                                    <td>{{ $article->category->name }}</td>
-                                    <td>{{ $article->is_published == true ? 'Published' : 'Unpublished' }}</td>
-                                    <td>
-                                        <a class="badge bg-success text-white"
-                                            href="/dashboard/articles/{{ $article->slug }}">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a class="badge bg-warning text-white"
-                                            href="/dashboard/articles/{{ $article->slug }}/edit">
-                                            <i class="fas fa-pen"></i>
-                                        </a>
-                                        <button type="button" class="badge bg-danger d-inline border-0"
-                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                            data-bs-whatever="{{ $article->slug }}"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <a href="/dashboard/articles/create" class="btn btn-primary mb-4">Create Post</a>
+    <div class="card">
+        <h5 class="card-header m-0">Posts</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-hover" id="postTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach ($articles as $article)
+                        <tr>
+                            <td><strong>{{ $article->title }}</strong></td>
+                            <td>{!! $article->is_published == true ? '<span class="badge bg-label-primary me-1">Published</span>' : '<span class="badge bg-label-warning me-1">Unpublished</span>' !!}</td>
+                            <td>{{ $article->category->name }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                            href="/dashboard/articles/{{ $article->slug }}/edit">Edit</a>
+                                        <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal"
+                                            data-bs-whatever="{{ $article->slug }}">Delete</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-    <!-- /.container-fluid -->
-
-    <!-- Modal -->
-    <!-- Delete Modal-->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Article</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body modal-delete">
-                    <div class="mb-3">
-                        <p class="modal-p"></p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form class="myForm" action="" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('/dashboard/partials/deleteModal')
 @endsection
 
 @push('styles')
-    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+@endpush
+
+@push('styles')
+    <style>
+        #postTable_filter {
+            float: left;
+            padding: 10px;
+        }
+    </style>
 @endpush
 
 @push('scripts')
-    <!-- Page level plugins -->
-    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    {{-- Page level custom scripts --}}
-    <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
-
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script>
-        let deleteModal = document.getElementById('deleteModal');
-        deleteModal.addEventListener('show.bs.modal', function(event) {
-
-            let button = event.relatedTarget;
-
-            let recipient = button.getAttribute('data-bs-whatever');
-
-            let modalParagraph = deleteModal.querySelector('.modal-p');
-            let modalFormAction = deleteModal.querySelector('.myForm');
-
-            let title = recipient.replaceAll("-", " ");
-
-            modalParagraph.textContent = `Delete article "${title}" ?`;
-            modalFormAction.action = `/dashboard/articles/${recipient}`;
+        $(document).ready(function() {
+            $('#postTable').DataTable({
+                paging: false,
+                ordering: false,
+                info: false,
+            });
         });
     </script>
 @endpush

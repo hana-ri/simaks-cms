@@ -36,8 +36,9 @@
                     <div class="card mb-3">
                         @if ($articles[0]->thumbnail)
                             <img src="{{ asset('storage/' . $articles[0]->thumbnail) }}" class="card-img-top" alt="...">
-                        @else
-                            <img src="https://source.unsplash.com/700x350/?{{ $articles[0]->category->name }}" class="card-img-top" alt="...">
+                            @else
+                            {{-- <img src="https://source.unsplash.com/700x350/?{{ $articles[0]->category->name }}" class="card-img-top" alt="..."> --}}
+                            <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
                         @endif
                         <div class="card-body">
                             <div class="small text-muted">{{ $articles[0]->created_at->diffForHumans() }} By
@@ -56,7 +57,8 @@
                                     @if ($article->thumbnail)
                                         <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
                                     @else
-                                        <img src="https://source.unsplash.com/700x350/?{{ $article->category->name }}" class="card-img-top" alt="...">
+                                        {{-- <img src="https://source.unsplash.com/700x350/?{{ $article->category->name }}" class="card-img-top" alt="..."> --}}
+                                        <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
                                     @endif
                                     <div class="card-body">
                                         <div class="small text-muted">{{ $article->created_at->diffForHumans() }} By

@@ -13,8 +13,10 @@
                         <!-- Post title-->
                         <h1 class="fw-bolder mb-1">{{ $article->title }}</h1>
                         <!-- Post meta content-->
-                        <div class="text-muted fst-italic mb-2">{{ $article->created_at->diffForHumans() }} by <strong><a
-                                    href="/blog?author={{ $article->author->username }}">{{ $article->author->name }}</a></strong>
+                        <div class="text-muted fst-italic mb-2">{{ $article->created_at->diffForHumans() }} by 
+                            <strong>
+                                <a href="/blog?author={{ $article->author->username }}">{{ $article->author->name }}</a>
+                            </strong>
                         </div>
                         <!-- Post categories-->
                         <a class="badge bg-primary text-decoration-none link-light"
@@ -28,8 +30,9 @@
                                 <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
                             </div>
                         @else
-                            <img src="https://source.unsplash.com/900x400/?{{ $article->category->name }}"
-                                class="card-img-top" alt="{{ $article->category->name }}">
+                            {{-- <img src="https://source.unsplash.com/900x400/?{{ $article->category->name }}"
+                                class="card-img-top" alt="{{ $article->category->name }}"> --}}
+                                <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
                         @endif
                     </figure>
                     <!-- Post content-->

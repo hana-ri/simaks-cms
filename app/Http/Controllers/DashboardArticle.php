@@ -21,6 +21,12 @@ class DashboardArticle extends Controller
 	 */
 	public function index()
 	{
+		if (auth()->user()->is_admin) {
+			return view('dashboard/articles/index', [
+				'articles' => Article::all(),
+			]);
+		}
+
 		return view('dashboard/articles/index', [
 			'articles' => Article::where('user_id', auth()->user()->id)->get(),
 		]);

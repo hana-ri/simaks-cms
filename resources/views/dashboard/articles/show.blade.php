@@ -23,10 +23,7 @@
                                 <button type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal">
                                     Delete
-                                </button>{{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="dropdown-item"></i>
-                                    Delete
-                                </a> --}}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -39,16 +36,17 @@
                                 <h1 class="fw-bolder mb-1 text-center">{{ $article->title }}</h1>
                             </header>
                             <!-- Preview image figure-->
-                            @if ($article->thumbnail)
-                                <div class="mb-3" style="max-height: 350px; overflow:hidden">
-                                    <figure class="mb-4"><img class="img-fluid rounded"
-                                            src="{{ asset('storage/' . $article->thumbnail) }}" /></figure>
-                                </div>
-                            @else
-                                <figure class="mb-4"><img class="img-fluid rounded"
-                                        src="https://source.unsplash.com/1200x400/?{{ $article->slug }}" /></figure>
-                            @endif
-
+                            <figure class="mb-4">
+                                @if ($article->thumbnail)
+                                    <div style="max-height: 350px; overflow:hidden">
+                                        <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
+                                    </div>
+                                @else
+                                    {{-- <img src="https://source.unsplash.com/900x400/?{{ $article->category->name }}"
+                                        class="card-img-top" alt="{{ $article->category->name }}"> --}}
+                                        <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
+                                @endif
+                            </figure>
                             <!-- Post content-->
                             <section class="mb-5">
                                 {!! $article->body !!}
@@ -68,6 +66,7 @@
                     <!-- Card Body -->
                     <div class="card-body text-secondary">
                         <section class="mb-5">
+                            <p><strong>By</strong> {{ $article->author->name }} </p>
                             <p><strong>Created on</strong> {{ $article->created_at->toFormattedDateString() }} </p>
                             <p><strong>Last Update on</strong> {{ $article->updated_at->toFormattedDateString() }} </p>
                             <p><strong>Category :</strong> {{ $article->category->name }} </p>

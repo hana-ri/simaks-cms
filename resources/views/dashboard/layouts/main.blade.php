@@ -1,79 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('/assets/') }}" data-template="vertical-menu-template-free">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    {{-- @stack('seo') --}}
+    @stack('pageTitle')
 
-    <title>SB Admin 2 - Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <!-- Custom fonts for this template-->
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('/assets/img/favicon/favicon.ico') }}" />
 
-    <!-- BS5 CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-5.1.3-dist/css/bootstrap.min.css') }}">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('/assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/pages/page-auth.css') }}" />
+    <!-- Helpers -->
+    <script src="{{ asset('/assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ asset('/assets/js/config.js') }}"></script>
     @stack('styles')
 </head>
 
-<body id="page-top">
+<body>
+    <!-- Content -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+            @include('dashboard/partials/sidebar')
+            <!-- / Menu -->
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- header -->
+                @include('dashboard/partials/header')
+                <!-- / header -->
 
-        @include('/dashboard/partials/sidebar')
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+                    <div class="container-fluid flex-grow-1 container-p-y">
+                        <!-- Layout Demo -->
+                        @yield('container')
+                        <!--/ Layout Demo -->
+                    </div>
+                    <!-- / Content -->
 
-            <!-- Main Content -->
-            <div id="content">
+                    <!-- Footer -->
+                    @include('/dashboard/partials/footer')
+                    <!-- / Footer -->
 
-                @include('/dashboard/partials/header')
-
-                @yield('container')
-
-
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
             </div>
-            <!-- End of Main Content -->
-
-            @include('/dashboard/partials/footer')
-
+            <!-- / Layout page -->
         </div>
-        <!-- End of Content Wrapper -->
 
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{{ asset('/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+    <script src="{{ asset('/assets/vendor/js/menu.js') }}"></script>
+    <!-- endbuild -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Vendors JS -->
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- JavaScript BS5 -->
-    <script src="{{ asset('vendor/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>
-
+    <!-- Main JS -->
+    <script src="{{ asset('/assets/js/main.js') }}"></script>
     @stack('scripts')
-
 </body>
 
 </html>

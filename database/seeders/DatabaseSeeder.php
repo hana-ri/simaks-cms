@@ -18,29 +18,20 @@ class DatabaseSeeder extends Seeder
     {
 
         User::create([
-            "name" => "dimas",
-            "username" => 'dimas',
-            "email" => "dimas@gmail.com",
+            "name" => "admin",
+            "username" => 'admin',
+            "email" => "admin@gmail.com",
             "password" => bcrypt(ENV('seedPWD')),
             "is_admin" => true,
             "is_actived" => true
         ]);
 
         User::create([
-            "name" => "rifty",
-            "username" => 'rifty',
-            "email" => "rifty@gmail.com",
+            "name" => "user",
+            "username" => 'user',
+            "email" => "user@gmail.com",
             "password" => bcrypt(ENV('seedPWD')),
-            "is_admin" => true,
-            "is_actived" => true
-        ]);
-
-        User::create([
-            "name" => "rizal",
-            "username" => 'rizal',
-            "email" => "rizal@gmail.com",
-            "password" => bcrypt(ENV('seedPWD')),
-            "is_admin" => true,
+            "is_admin" => false,
             "is_actived" => true
         ]);
 
@@ -60,7 +51,7 @@ class DatabaseSeeder extends Seeder
 
         Article::factory(50)->create();
 
-        Category::factory(5)->create();
+        Category::factory(2)->create();
 
 /*
 

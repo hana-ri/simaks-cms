@@ -1,6 +1,5 @@
 @extends('dashboard/layouts/main')
 @section('container')
-    <div class="container-fluid">
         <div class="row">
             <!-- Area Chart -->
             <div class="col-md-12 col-md-8">
@@ -11,7 +10,7 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <form form method="POST" action="/dashboard/articles/" enctype="multipart/form-data">
+                        <form method="POST" action="/dashboard/posts/" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="titleLabel" class="form-label">Title</label>
@@ -21,7 +20,7 @@
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label for="slugLabel" class="form-label">Slug</label>
                                 <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slugLabel"
@@ -34,14 +33,13 @@
                             <div class="mb-3">
                                 <label for="thumbnail"
                                     class="form-label @error('thumbnail') is-invalid @enderror">Thumbnail</label>
-                                    <img class="thumbnail-preview img-fluid mb-3 col-sm-5">
+                                <img class="thumbnail-preview img-fluid mb-3 col-sm-5">
                                 {{-- <image class="thumbnail-preview img-fluid mb-3 col-sm-5"></image> --}}
                                 <input class="form-control" type="file" id="thumbnail" name="thumbnail"
                                     onchange="previewThumbnail()">
                                 @error('thumbnail')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
-
                             </div>
 
                             <div class="form-group row">
@@ -59,59 +57,51 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6">
-                                        @can('admin')
+                                    @can('admin')
                                         <label for="category" class="form-label">Status</label>
                                         <select class="form-select" aria-label="Default select example" name="is_published">
                                             <option value="1">Published</option>
                                             <option value="0" selected>Unpublished</option>
                                         </select>
-                                        @else
-                                            <input type="hidden" name="is_published" value="0">
-                                        @endcan
+                                    @else
+                                        <input type="hidden" name="is_published" value="0">
+                                    @endcan
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="body" class="form-label">Content</label>
-                                <textarea id="summernote" class="form-control" placeholder="Leave a comment here"
-                                    name="body">{!! old('body') !!}</textarea>
+                                <textarea id="summernote" name="body">{!! old('body') !!}</textarea>
                                 @error('body')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Submit <span
-                                        data-feather="log-out"></span></button>
-                                <a href="/dashboard/articles" class="btn btn-secondary">Back</a>
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('vendor/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-lite.css') }}">
 @endpush
 
 @push('scripts')
-    <script type="text/javascript" src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/summernote/summernote-lite.js') }}"></script>
     <script>
+        // Slug
         const title = document.querySelector('#titleLabel');
         const slug = document.querySelector('#slugLabel');
 
-        title.addEventListener('change', function() {
+        title.addEventListener('input', function() {
             fetch(`/dashboard/articles/checkSlug?title=${title.value}`)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug);
-        });
-
-        // summernote
-        $(document).ready(function() {
-            $('#summernote').summernote();
         });
 
         // Preview thumbnail
@@ -128,5 +118,25 @@
                 thumbnailPreview.src = oFReader.target.result;
             }
         }
+    </script>
+
+    <script>
+        // summernote
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['fontname', ['fontname']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video']],
+                        ['view', ['fullscreen', 'codeview', 'help']],
+                        ],
+                placeholder: 'Text editor...',
+                height: 200,
+            });
+        });
     </script>
 @endpush
