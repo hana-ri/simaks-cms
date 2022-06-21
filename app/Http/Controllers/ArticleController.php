@@ -41,7 +41,7 @@ class ArticleController extends Controller
 	        "articles" => Article::latest()
 	        				->where('is_published', true)
 	        				->filter(request(['search', 'category']))
-	        				->paginate(5)
+	        				->paginate(9)
 	        				->withQueryString()
    		]);
 	}
@@ -90,7 +90,7 @@ class ArticleController extends Controller
 			"articles" => $author->articles()
 							->where('is_published', true)
 							->latest()
-							->paginate(5),
+							->paginate(9),
 		]);
 	}
 
@@ -102,7 +102,7 @@ class ArticleController extends Controller
 	public function category(Category $category) {
 		return view('articles', [
 			"categories" => Category::all(),
-			"articles" => $category->articles()->latest()->paginate(5),
+			"articles" => $category->articles()->latest()->paginate(9),
 		]);
 	}
 	

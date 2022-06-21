@@ -18,7 +18,7 @@
                         @error('title')
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
-                    </div>    
+                    </div>
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>
                         <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
@@ -26,7 +26,7 @@
                         @error('slug')
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
-                    </div>    
+                    </div>
                     <div class="mb-3">
                         <label for="thumbnail" class="form-label @error('thumbnail') is-invalid @enderror">Thumbnail</label>
                         @if ($article->thumbnail)
@@ -40,7 +40,7 @@
                         @error('thumbnail')
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
-                    </div>    
+                    </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="category" class="form-label">Category</label>
@@ -58,21 +58,21 @@
                             @can('admin')
                                 <label for="category" class="form-label">Status</label>
                                 <select class="form-select" aria-label="Default select example" name="is_published">
-                                    <option value="1" {{ ($article->is_published) ? 'Selected' : '' }}>Published</option>
-                                    <option value="0" {{ (!$article->is_published) ? 'Selected' : '' }}>Unpublished</option>
+                                    <option value="1" {{ $article->is_published ? 'Selected' : '' }}>Published</option>
+                                    <option value="0" {{ !$article->is_published ? 'Selected' : '' }}>Unpublished</option>
                                 </select>
                             @else
                                 <input type="hidden" name="is_published" value="0">
                             @endcan
                         </div>
-                    </div>    
+                    </div>
                     <div class="mb-3">
                         <label for="body" class="form-label">Content</label>
                         <textarea id="summernote" class="form-control" name="body">{!! $article->body !!}</textarea>
                         @error('body')
                             <div class="invalid-feedback"> {{ $message }}</div>
-                        @enderror   
-                    </div>                         
+                        @enderror
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
@@ -120,15 +120,15 @@
         $(document).ready(function() {
             $('#summernote').summernote({
                 toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['fontname', ['fontname']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture']],
-                        ['view', ['fullscreen', 'codeview', 'help']],
-                        ],
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
                 placeholder: 'Text editor...',
                 height: 200,
             });

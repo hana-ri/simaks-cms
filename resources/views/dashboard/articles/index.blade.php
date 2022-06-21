@@ -26,11 +26,11 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                            href="/dashboard/articles/{{ $article->slug }}/edit">Edit</a>
+                                        <a class="dropdown-item" href="/dashboard/articles/{{ $article->slug }}/edit"><i
+                                                class="bx bx-edit me-2"></i> Edit</a>
                                         <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal"
-                                            data-bs-whatever="{{ $article->slug }}">Delete</button>
+                                            data-bs-target="#deleteModal" data-bs-whatever="{{ $article->slug }}"><i
+                                                class="bx bx-trash me-2"></i> Delete</button>
                                     </div>
                                 </div>
                             </td>
@@ -53,6 +53,7 @@
             float: left;
             padding: 10px;
         }
+
     </style>
 @endpush
 

@@ -90,14 +90,15 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
+        {{-- @dd(Request::is('settings*')) --}}
+        <li class="menu-item {{ (Request::is('settings*')) ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Menu">Users</div>
+                <div data-i18n="Menu">Settings</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/dashboard/users" class="menu-link">
+                <li class="menu-item {{ (Request::is('settings/account')) ? 'active' : '' }}">
+                    <a href="/settings/account" class="menu-link">
                         <div data-i18n="Post">Account</div>
                     </a>
                 </li>

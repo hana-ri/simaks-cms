@@ -2,7 +2,6 @@
 @section('container')
     <div class="container-fluid">
         <div class="row">
-
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7">
                 <div class="card shadow mb-4">
@@ -39,12 +38,14 @@
                             <figure class="mb-4">
                                 @if ($article->thumbnail)
                                     <div style="max-height: 350px; overflow:hidden">
-                                        <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
+                                        <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top"
+                                            alt="...">
                                     </div>
                                 @else
                                     {{-- <img src="https://source.unsplash.com/900x400/?{{ $article->category->name }}"
                                         class="card-img-top" alt="{{ $article->category->name }}"> --}}
-                                        <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
+                                    <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top"
+                                        alt="...">
                                 @endif
                             </figure>
                             <!-- Post content-->

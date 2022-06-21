@@ -93,6 +93,6 @@ Route::resource('/dashboard/categories', CategoryController::class)
         ->except(['show', 'create'])
         ->middleware('auth');
 
-Route::resource('/dashboard/users', UserController::class)
+Route::resource('/settings/account', UserController::class)
         ->except(['show', 'create', 'store'])
         ->middleware('admin');

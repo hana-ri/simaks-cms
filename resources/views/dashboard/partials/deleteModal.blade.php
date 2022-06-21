@@ -24,9 +24,9 @@
 @push('scripts')
     <script>
         $('#deleteModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var recipient = button.data('bs-whatever')
-            var modal = $(this)
+            let button = $(event.relatedTarget)
+            let recipient = button.data('bs-whatever')
+            let modal = $(this)
             modal.find('.modal-body form').attr('action', '{{ URL::current() }}/' + recipient)
         });
 
