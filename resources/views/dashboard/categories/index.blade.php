@@ -1,46 +1,4 @@
 @extends('dashboard/layouts/main')
-
-@section('container')
-<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
-    Create new category
-</button>
-    <div class="row">
-        <div class="col-md-12 col-md-8">
-            <div class="card">
-                <h5 class="card-header">Categories</h5>
-                <div class="card-body">
-                    @foreach ($categories as $category)
-                        <div class="card accordion-item mb-3">
-                            <h2 class="accordion-header" id="heading{{ $loop->iteration }}">
-                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                    data-bs-target="#accordion{{ $loop->iteration }}" aria-expanded="false"
-                                    aria-controls="accordion{{ $loop->iteration }}">
-                                    {{ $category->name }}
-                                </button>
-                            </h2>
-                            <div id="accordion{{ $loop->iteration }}" class="accordion-collapse collapse"
-                                aria-labelledby="heading{{ $loop->iteration }}" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    {{ $category->description }}
-                                    <div>
-                                        <a href="/dashboard/categories/{{ $category->slug }}/edit"
-                                            class="btn btn-warning text-white mt-3">Edit</a>
-                                        <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal"
-                                            data-bs-whatever="{{ $category->slug }}">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-    @include('dashboard\categories\create')
-    @include('dashboard/partials/deleteModal')
-@endsection
-
 @section('container')
     <div class="row">
         <div class="col-md-12 col-md-8">
@@ -52,60 +10,47 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+                        Create new category
                     </button>
-                    <div class="row">
-                        <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Slug</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
                             @foreach ($categories as $category)
-                                <!-- Collapsable Card Example -->
-                                <div class="card shadow mb-4">
-                                    <!-- Card Header - Accordion -->
-                                    <a href="#card-{{ $loop->iteration }}" class="d-block card-header py-3"
-                                        data-toggle="collapse" role="button" aria-expanded="true"
-                                        aria-controls="card-{{ $loop->iteration }}">
-                                        <h6 class="m-0 font-weight-bold text-primary">{{ $category->name }}</h6>
-                                    </a>
-                                    <!-- Card Content - Collapse -->
-                                    <div class="collapse hidden" id="card-{{ $loop->iteration }}">
-                                        <div class="card-body">
-                                            <p>{{ $category->description }}</p>
-                                            <a href="/dashboard/categories/{{ $category->slug }}/edit"
-                                                class="btn btn-warning text-white">Edit</a>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal"
-                                                data-bs-whatever="{{ $category->slug }}">Delete</button>
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $category->slug }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                {{-- <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a> --}}
+                                                <button class="dropdown-item btn btn-warning btn-detail open_modal" value="{{$category->slug}}">Edit</button>
+                                                <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{ $category->slug }}"><i class="bx bx-trash me-2"></i> Delete</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </td>
+                                </tr>
                             @endforeach
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
         </div>
     </div>
-    @include('dashboard\categories\create')
+    @include('dashboard/categories/create')
     @include('dashboard/partials/deleteModal')
 @endsection
-
-@push('scripts')
-    <script>
-        const title = document.querySelector('#nameLabel');
-        const slug = document.querySelector('#slugLabel');
-
-        title.addEventListener('change', function() {
-            fetch(`/dashboard/articles/checkSlug?title=${title.value}`)
-                .then(response => response.json())
-                .then(data => slug.value = data.slug);
-        });
-
-        $(document).ready(function() {
-            $("#submitButton").click(function() {
-                $("#categoryForm").submit();
-            });
-        });
-    </script>
-@endpush

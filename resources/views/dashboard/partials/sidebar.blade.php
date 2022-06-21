@@ -57,29 +57,28 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item">
+        <li class="menu-item {{ (Request::is('dashboard')) ? 'active' : '' }}">
             <a href="/dashboard" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-
         <!-- Layouts -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ (Request::is('dashboard/*')) ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Menu">Blog</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item {{ (Request::is('dashboard/articles')) ? 'active' : '' }}">
                     <a href="/dashboard/articles" class="menu-link">
                         <div data-i18n="Post">Post</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ (Request::is('dashboard/categories')) ? 'active' : '' }}">
                     <a href="/dashboard/categories" class="menu-link">
                         <div data-i18n="Categories">Categories</div>
                     </a>

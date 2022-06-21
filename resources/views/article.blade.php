@@ -1,109 +1,119 @@
 @extends('layouts/main')
-
 @section('container')
-    @include('/partials/navbar')
-    <!-- Page content-->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-8">
-                <!-- Post content-->
-                <article>
-                    <!-- Post header-->
-                    <header class="mb-4">
-                        <!-- Post title-->
-                        <h1 class="fw-bolder mb-1">{{ $article->title }}</h1>
-                        <!-- Post meta content-->
-                        <div class="text-muted fst-italic mb-2">{{ $article->created_at->diffForHumans() }} by 
-                            <strong>
-                                <a href="/blog?author={{ $article->author->username }}">{{ $article->author->name }}</a>
-                            </strong>
-                        </div>
-                        <!-- Post categories-->
-                        <a class="badge bg-primary text-decoration-none link-light"
-                            href="/blog?category={{ $article->category->slug }}">{{ $article->category->name }}</a>
-                    </header>
-                    <!-- Preview image figure-->
-
-                    <figure class="mb-4">
-                        @if ($article->thumbnail)
-                            <div style="max-height: 350px; overflow:hidden">
-                                <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
-                            </div>
-                        @else
-                            {{-- <img src="https://source.unsplash.com/900x400/?{{ $article->category->name }}"
-                                class="card-img-top" alt="{{ $article->category->name }}"> --}}
-                                <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
-                        @endif
-                    </figure>
-                    <!-- Post content-->
-                    <section class="mb-5 fs-5">
-                        {!! $article->body !!}
-                    </section>
-                </article>
-                <!-- Comments section-->
-                <section class="mb-5">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <!-- Comment form-->
-                            <form class="mb-4"><textarea class="form-control" rows="3"
-                                    placeholder="Join the discussion and leave a comment!"></textarea></form>
-                            <!-- Comment with nested comments-->
-                            <div class="d-flex mb-4">
-                                <!-- Parent comment-->
-                                <div class="flex-shrink-0"><img class="rounded-circle"
-                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    If you're going to lead a space frontier, it has to be government; it'll never be
-                                    private enterprise. Because the space frontier is dangerous, and it's expensive, and it
-                                    has unquantified risks.
-                                    <!-- Child comment 1-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            And under those conditions, you cannot establish a capital-market evaluation of
-                                            that enterprise. You can't get investors.
-                                        </div>
-                                    </div>
-                                    <!-- Child comment 2-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            When you put money directly to a problem, it makes a good headline.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single comment-->
-                            <div class="d-flex">
-                                <div class="flex-shrink-0"><img class="rounded-circle"
-                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    When I look at the universe and all the ways the universe wants to kill us, I find it
-                                    hard to reconcile that with statements of beneficence.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <!-- Side widgets-->
-            <div class="col-lg-4">
-                <!-- Side widget-->
-                <div class="card mb-4">
-                    <div class="card-header bg-light h5 text-center">Ads/Widget</div>
-                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to
-                        use, and feature the Bootstrap 5 card component!</div>
+   <!--MAIN BANNER AREA START -->
+<div class="page-banner-area page-contact" id="page-banner">
+    <div class="overlay dark-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 m-auto text-center col-sm-12 col-md-12">
+                <div class="banner-content content-padding">
+                    <h1 class="text-white">{{ $article->title }}</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, perferendis?</p>
                 </div>
             </div>
         </div>
     </div>
-@include('/partials/footer')
+</div>
+<!--MAIN HEADER AREA END -->
+
+<section class="section blog-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-post">
+                                <img src="{{ asset('/assets/assets/images/blog/blog-lg.jpg') }}" alt="" class="img-fluid">
+                                <div class="mt-4 mb-3 d-flex">
+                                    <div class="post-author mr-3">
+                                        <i class="fa fa-user"></i>
+                                        <span class="h6 text-uppercase">{{ $article->author->name }}</span>
+                                    </div>
+
+                                    <div class="post-info">
+                                        <i class="fa fa-calendar-check"></i>
+                                        <span>{{ $article->created_at->diffForHumans() }}</span>
+                                    </div>
+                                </div>
+                                
+                                <article>
+                                    {!! $article->body !!}
+                                </article>
+                                
+                                <div class="mt-5 mb-3">
+                                    <h5 class="d-inline-block mr-3">Tags:</h5>
+                                    <ul class="list-inline d-inline-block">
+                                        <li class="list-inline-item"><a href="#">Agency</a>,</li>
+                                        <li class="list-inline-item"><a href="#">Marketing</a>,</li>
+                                        <li class="list-inline-item"><a href="#">Business</a></li>
+                                    </ul>
+                                </div>
+                                <div class="my-4">
+                                    <h5 class="d-inline-block mr-3">Share Now:</h5>
+                                    <ul class="list-inline d-inline-block">
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-4">
+                                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget search">
+                                <div class="form-group">
+                                    <input type="text" placeholder="search" class="form-control">
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget about-bar">
+                                <h5 class="mb-3">About us</h5>
+                                <p>Nostrum ullam porro iusto. Fugit eveniet sapiente nobis nesciunt velit cum fuga doloremque dignissimos asperiores</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget category">
+                                <h5 class="mb-3">Category</h5>
+                                <ul class="list-styled">
+                                    <li>Marketing</li>
+                                    <li>Digiatl</li>
+                                    <li>SEO</li>
+                                    <li>Web Design</li>
+                                    <li>Development</li>
+                                    <li>video</li>
+                                    <li>audio</li>
+                                    <li>slider</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget tag">
+                                <a href="#">web</a>
+                                <a href="#">development</a>
+                                <a href="#">seo</a>
+                                <a href="#">marketing</a>
+                                <a href="#">branding</a>
+                                <a href="#">web deisgn</a>
+                                <a href="#">Tutorial</a>
+                                <a href="#">Tips</a>
+                                <a href="#">Design trend</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+</section>
 @endsection
 
 @push('seo')

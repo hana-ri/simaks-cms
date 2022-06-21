@@ -1,4 +1,4 @@
-@extends('layouts/main')
+@extends('layouts/secondary')
 @section('container')
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">

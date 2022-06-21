@@ -1,77 +1,66 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style customizer-hide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="{{ asset('/assets/') }}"
-  data-template="vertical-menu-template-free"
->
+<html lang="zxx">
 
-  <head>
-    @stack('seo')
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="seo & digital marketing">
+    <meta name="keywords"
+        content="marketing,digital marketing,creative, agency, startup,promodise,onepage, clean, modern,seo,business, company">
+    <meta name="author" content="Themefisher.com">
+
     @stack('pageTitle')
-    @stack('styles')
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="{{ asset('/assets/assets/plugins/bootstrap/css/bootstrap.css') }}">
+    <!-- Icofont Css -->
+    <link rel="stylesheet" href="{{ asset('/assets/assets/plugins/fontawesome/css/all.css') }}">
+    <!-- animate.css -->
+    <link rel="stylesheet" href="{{ asset('/assets/assets/plugins/animate-css/animate.css') }}">
+    <!-- Icofont -->
+    <link rel="stylesheet" href="{{ asset('/assets/assets/plugins/icofont/icofont.css') }}">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('/assets/img/favicon/favicon.ico') }}" />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('/assets/assets/css/style.css') }}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/fonts/boxicons.css') }}" />
+</head>
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('/assets/css/demo.css') }}" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+<body data-spy="scroll" data-target=".fixed-top">
+    @include('partials\navbar')
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/pages/page-auth.css') }}" />
-    <!-- Helpers -->
-    <script src="{{ asset('/assets/vendor/js/helpers.js') }}"></script>
+   @yield('container')
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('/assets/js/config.js') }}"></script>
-  </head>
+   @include('partials/footer')
 
-  <body>
-    <!-- Content -->
-    @yield('container')
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="{{ asset('/assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
 
-    <!-- Vendors JS -->
+    <!--
+    Essential Scripts
+    =====================================-->
 
-    <!-- Main JS -->
-    <script src="{{ asset('/assets/js/main.js') }}"></script>
 
-    <!-- Page JS -->
+    <!-- Main jQuery -->
+    <script src="{{ asset('/assets/assets/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4.3.1 -->
+    <script src="{{ asset('/assets/assets/plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ asset('/assets/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!-- Woow animtaion -->
+    <script src="{{ asset('/assets/assets/plugins/counterup/wow.min.js') }}"></script>
+    <script src="{{ asset('/assets/assets/plugins/counterup/jquery.easing.1.3.js') }}"></script>
+    <!-- Counterup -->
+    <script src="{{ asset('/assets/assets/plugins/counterup/jquery.waypoints.js') }}"></script>
+    <script src="{{ asset('/assets/assets/plugins/counterup/jquery.counterup.min.js') }}"></script>
 
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-  </body>
+    <!-- Google Map -->
+    <script src="{{ asset('/assets/assets/plugins/google-map/gmap3.min.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap">
+    </script>
+    <!-- Contact Form -->
+    <script src="{{ asset('/assets/assets/plugins/jquery/contact.js') }}"></script>
+    <script src="{{ asset('/assets/assets/js/custom.js') }}"></script>
+
+</body>
+
 </html>

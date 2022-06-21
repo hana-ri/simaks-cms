@@ -1,115 +1,162 @@
 @extends('layouts/main')
 
 @section('container')
-    @include('/partials/navbar')
-
-    <div class="container my-3">
-        {{-- Search Navigation --}}
-        <div class="row justify-content-center mt-3">
-            <div class="col-lg">
-                <div class="card mb-4">
-                    <div class="card-header text-center bg-primary text-white h4">Search Article</div>
-                    <div class="card-body">
-                        <form action="/blog">
-                            @if (request('category'))
-                                <input type="hidden" name="category" value="{{ request('category') }}">
-                            @elseif(request('author'))
-                                <input type="hidden" name="author" value="{{ request('author') }}">
-                            @endif
-                            <div class="input-group mb-3">
-                                <input class="form-control" type="text"
-                                    placeholder="Input the title or content of article..." aria-label="Search" name="search"
-                                    value="{{ request('search') }}">
-                                <button class="btn btn-primary" type="submit">Search</button>
-                            </div>
-                        </form>
+    <!--MAIN BANNER AREA START -->
+    <div class="page-banner-area page-contact" id="page-banner">
+        <div class="overlay dark-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 m-auto text-center col-sm-12 col-md-12">
+                    <div class="banner-content content-padding">
+                        <h1 class="text-white">Latest news</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, perferendis?</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-12 col-md-8">
+    <!--MAIN HEADER AREA END -->
+    <section class="section blog-wrap ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    {{-- Headline --}}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-post">
+                                @if (count($articles) > 0)
+                                    @if ($articles[0]->thumbnail)
+                                        {{-- <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="" class="img-fluid"> --}}
+                                        <img src="{{ asset('/assets/assets/images/blog/blog-lg.jpg') }}" alt=""
+                                            class="img-fluid">
+                                    @else
+                                        <img src="{{ asset('/assets/assets/images/blog/blog-lg.jpg') }}" alt=""
+                                            class="img-fluid">
+                                    @endif
+                                    <div class="mt-4 mb-3 d-flex">
+                                        <div class="post-author mr-3">
+                                            <i class="fa fa-user"></i>
+                                            <span class="h6 text-uppercase">{{ $articles[0]->author->name }}</span>
+                                        </div>
 
-                @if ($articles[0] != null)
-                    {{-- Highlight article --}}
-                    <div class="card mb-3">
-                        @if ($articles[0]->thumbnail)
-                            <img src="{{ asset('storage/' . $articles[0]->thumbnail) }}" class="card-img-top" alt="...">
-                            @else
-                            {{-- <img src="https://source.unsplash.com/700x350/?{{ $articles[0]->category->name }}" class="card-img-top" alt="..."> --}}
-                            <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
-                        @endif
-                        <div class="card-body">
-                            <div class="small text-muted">{{ $articles[0]->created_at->diffForHumans() }} By
-                                {{ $articles[0]->author->name }}</div>
-                            <h1 class="card-title">{{ $articles[0]->title }}</h1>
-                            <p class="card-text">{{ $articles[0]->excerpt }}</p>
-                            <a href="/blog/{{ $articles[0]->slug }}" class="btn btn-primary">Read more →</a>
+                                        <div class="post-info">
+                                            <i class="fa fa-calendar-check"></i>
+                                            <span>{{ $articles[0]->created_at->diffForHumans() }}</span>
+                                        </div>
+                                    </div>
+                                    <a href="/blog/{{ $articles[0]->slug }}"
+                                        class="h4 ">{{ $articles[0]->title }}</a>
+                                    <p class="mt-3">{{ $articles[0]->excerpt }}</p>
+                                    <a href="/blog/{{ $articles[0]->slug }}" class="read-more">Read More <i
+                                            class="fa fa-angle-right"></i></a>
+                                @else
+                                    <h3>not found</h3>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
-                    {{-- article --}}
                     <div class="row">
                         @foreach ($articles->skip(1) as $article)
-                            <div class="col-lg-6 mb-3">
-                                <div class="card h-100 mb-3">
-                                    @if ($article->thumbnail)
-                                        <img src="{{ asset('storage/' . $article->thumbnail) }}" class="card-img-top" alt="...">
+                            <div class="col-lg-6">
+                                <div class="blog-post">
+                                    @if ($articles[0]->thumbnail)
+                                        {{-- <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="" class="img-fluid"> --}}
+                                        <img src="{{ asset('/assets/assets/images/blog/blog-lg.jpg') }}" alt=""
+                                            class="img-fluid">
                                     @else
-                                        {{-- <img src="https://source.unsplash.com/700x350/?{{ $article->category->name }}" class="card-img-top" alt="..."> --}}
-                                        <img src="{{ asset('img\default\no-thumbnail.jpg') }}" class="card-img-top" alt="...">
+                                        <img src="{{ asset('/assets/assets/images/blog/blog-lg.jpg') }}" alt=""
+                                            class="img-fluid">
                                     @endif
-                                    <div class="card-body">
-                                        <div class="small text-muted">{{ $article->created_at->diffForHumans() }} By
-                                            {{ $article->author->name }}</div>
-                                        <h5 class="card-title">{{ $article->title }}</h5>
-                                        <p class="card-text">{{ $article->excerpt }}</p>
-                                        <a href="/blog/{{ $article->slug }}" class="btn btn-primary">Read more →</a>
+                                    <div class="mt-4 mb-3 d-flex">
+                                        <div class="post-author mr-3">
+                                            <i class="fa fa-user"></i>
+                                            <span class="h6 text-uppercase">{{ $article->author->name }}</span>
+                                        </div>
+
+                                        <div class="post-info">
+                                            <i class="fa fa-calendar-check"></i>
+                                            <span>{{ $article->created_at->diffForHumans() }}</span>
+                                        </div>
                                     </div>
+                                    <a href="/blog/{{ $article->slug }}" class="h4 ">{{ $article->title }}</a>
+                                    <p class="mt-3">{{ $article->excerpt }}</p>
+                                    <a href="/blog/{{ $article->slug }}" class="read-more">Read More <i
+                                            class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         @endforeach
-                    </div>
-            </div>
-        @else
-            <p>Not found</p>
-            @endif
-
-            {{-- <div class="col-lg-4">
-                <!-- Categories widget-->
-                <div class="card mb-4">
-                    <div class="card-header bg-dark text-white">Categories</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Web Design</a></li>
-                                    <li><a href="#!">HTML</a></li>
-                                    <li><a href="#!">Freebies</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">JavaScript</a></li>
-                                    <li><a href="#!">CSS</a></li>
-                                    <li><a href="#!">Tutorials</a></li>
-                                </ul>
-                            </div>
+                        <div class="col-lg-12 d-flex justify-content-center">
+                            {{ $articles->links() }}
                         </div>
                     </div>
                 </div>
-            </div> --}}
-        </div>
-        {{-- Pagenation --}}
-        <div class="d-flex justify-content-center mt-3">
-            {{ $articles->links() }}
-        </div>
 
-    </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget search">
+                                <div class="form-group">
+                                    <form action="/blog">
+                                        @if (request('category'))
+                                            <input type="hidden" name="category" value="{{ request('category') }}">
+                                        @elseif(request('author'))
+                                            <input type="hidden" name="author" value="{{ request('author') }}">
+                                        @endif
+                                        <div class="input-group">
+                                            <input type="text" placeholder="search" class="form-control" name="search"
+                                                value="{{ request('search') }}">
+                                            {{-- <button class="btn btn-primary" type="submit">Search</button> --}}
+                                            <button type="submit" class="btn btn-link"><i
+                                                    class="fa fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
-@include('/partials/footer')
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget category">
+                                <h5 class="mb-3">Category</h5>
+                                <ul class="list-styled">
+                                    @foreach ($categories as $category)
+                                        <li><a href="/blog/category/{{ $category->slug }}">{{ $category->name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sidebar-widget tag">
+                                <a href="#">web</a>
+                                <a href="#">development</a>
+                                <a href="#">seo</a>
+                                <a href="#">marketing</a>
+                                <a href="#">branding</a>
+                                <a href="#">web deisgn</a>
+                                <a href="#">Tutorial</a>
+                                <a href="#">Tips</a>
+                                <a href="#">Design trend</a>
+                            </div>
+                        </div>
+                        {{-- <div class="col-lg-12">
+                            <div class="sidebar-widget download">
+                                <h5 class="mb-4">Download Files</h5>
+                                <a href="#"> <i class="fa fa-file-pdf"></i>Company Manual</a>
+                                <a href="#"> <i class="fa fa-file-pdf"></i>Company Profile</a>
+                            </div>
+                        </div> --}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
 @endsection
+
 @push('seo')
     {!! SEO::generate() !!}
 @endpush

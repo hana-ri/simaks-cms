@@ -79,8 +79,10 @@
                     </li>
                     <li>
                         <a class="dropdown-item" href="auth-login-basic.html">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
+                            <form action="/logout" method="post">
+                                @csrf
+                                <button class="btn btn-link aligmen-middle d-inline" type="submit"><i class="bx bx-power-off me-2"></i>Logout</button>
+                            </form>
                         </a>
                     </li>
                 </ul>

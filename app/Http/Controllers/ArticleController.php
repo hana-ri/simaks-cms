@@ -37,6 +37,7 @@ class ArticleController extends Controller
 		}
 
 		return view('articles',  [
+			"categories" => Category::all(),
 	        "articles" => Article::latest()
 	        				->where('is_published', true)
 	        				->filter(request(['search', 'category']))
@@ -100,7 +101,7 @@ class ArticleController extends Controller
      * */
 	public function category(Category $category) {
 		return view('articles', [
-			"page" => 'author',
+			"categories" => Category::all(),
 			"articles" => $category->articles()->latest()->paginate(5),
 		]);
 	}
