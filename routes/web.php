@@ -11,8 +11,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\DashboardCategory;
 
-use App\Models\Category;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -25,21 +23,13 @@ use App\Models\Category;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect('/login');
-// });
 
 Route::get('/', function () {
-    return view('home',  [
-    	"page" => "Home"
-    ]);
+    return view('home');
 });
 
 Route::get('/about', function () {
-    return view('about', [
-        "page" => "About",
-        "author" => "Rizal" 
-    ]);
+    return view('about');
 });
 
 /**
@@ -51,12 +41,6 @@ Route::get('/blog', [ArticleController::class, 'index']);
 Route::get('/blog/author/{author:username}', [ArticleController::class, 'author']);
 Route::get('/blog/category/{category:slug}', [ArticleController::class, 'category']);
 Route::get('/blog/{article:slug}', [ArticleController::class, 'article']);
-Route::get('/blog/topics/list', function() {
-		return view('categories', [
-			"page" => "Categories",
-			"categories" => Category::all()
-		]);
-	});
 
 /**
 * menangani route login/autentifikasi.
