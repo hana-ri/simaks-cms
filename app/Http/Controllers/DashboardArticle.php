@@ -23,7 +23,7 @@ class DashboardArticle extends Controller
 	{
 		if (auth()->user()->is_admin) {
 			return view('dashboard/articles/index', [
-				'articles' => Article::all(),
+				'articles' => Article::paginate(50),
 			]);
 		}
 

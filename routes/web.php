@@ -94,5 +94,5 @@ Route::resource('/dashboard/categories', CategoryController::class)
         ->middleware('auth');
 
 Route::resource('/settings/account', UserController::class)
-        ->except(['show', 'create', 'store'])
+        ->except(['show', 'create'])
         ->middleware('admin');

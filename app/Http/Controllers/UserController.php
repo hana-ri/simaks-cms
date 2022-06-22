@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('/dashboard/users/index',[
+        return view('/dashboard/account/index',[
             'page' => 'register',
             'users' => User::all()
         ]);
@@ -40,7 +40,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData = $request->validate([
+    		'name' => ['required', 'max:100'],
+    		'username' => ['required', 'min:5', 'max:50', 'unique:users' ],
+    		'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'min:6', 'max:255', 'confirmed']
+    	]);
 
+    	$validateData['password'] = bcrypt($validateData['password']);
+
+		User::create($validateData);
+
+    	return redirect('/login')->with('success', 'Registration Successfully!');
     }
 
     /**
@@ -62,7 +73,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('/dashboard/users/edit', [
+        return view('/dashboard/account/edit', [
             'user' => $user,
         ]);
     }
@@ -114,7 +125,7 @@ class UserController extends Controller
             }
 
             DB::commit();
-            return redirect('/dashboard/users')->with('success', 'Category updated!');
+            return redirect('/dashboard/account')->with('success', 'Category updated!');
 
         }  catch (\Throwable $th) {
             DB::rollBack();
@@ -143,7 +154,7 @@ class UserController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('users.index')->with('success', 'User Deleted successfully.');
+            return redirect()->route('account.index')->with('success', 'User Deleted successfully.');
 
         } catch (\Throwable $th) {
             DB::rollBack();
