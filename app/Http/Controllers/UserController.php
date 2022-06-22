@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-use DB;
+use DB, Response;
 
 class UserController extends Controller
 {
@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('/dashboard/account/index',[
+        return view('/dashboard/users/index',[
             'page' => 'register',
             'users' => User::all()
         ]);
@@ -43,6 +43,8 @@ class UserController extends Controller
         $validateData = $request->validate([
     		'name' => ['required', 'max:100'],
     		'username' => ['required', 'min:5', 'max:50', 'unique:users' ],
+            'is_admin' => 'required',
+            'is_actived' => 'required',
     		'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:6', 'max:255', 'confirmed']
     	]);
@@ -51,7 +53,7 @@ class UserController extends Controller
 
 		User::create($validateData);
 
-    	return redirect('/login')->with('success', 'Registration Successfully!');
+    	return redirect('/settings/users')->with('success', 'Registration Successfully!');
     }
 
     /**
@@ -73,9 +75,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('/dashboard/account/edit', [
-            'user' => $user,
-        ]);
+        return Response::json($user);
     }
 
     /**
@@ -125,7 +125,7 @@ class UserController extends Controller
             }
 
             DB::commit();
-            return redirect('/dashboard/account')->with('success', 'Category updated!');
+            return redirect('/settings/users')->with('success', 'Category updated!');
 
         }  catch (\Throwable $th) {
             DB::rollBack();
@@ -154,7 +154,7 @@ class UserController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('account.index')->with('success', 'User Deleted successfully.');
+            return redirect('/settings/users')->with('success', 'User Deleted successfully.');
 
         } catch (\Throwable $th) {
             DB::rollBack();

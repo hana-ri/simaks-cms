@@ -5,9 +5,7 @@
     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
         Create new account
     </button>
-    @include('dashboard/account/create')
-
-    
+    @include('dashboard/users/create')
 
     <!-- Basic Bootstrap Table -->
     <div class="card">
@@ -41,10 +39,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#editModal" data-bs-whatever="{{ $user->username }}"><i
-                                                class="bx bx-view me-2"></i> View</button>
-                                        <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#editModal" data-bs-whatever="{{ $user->username }}"><i
+                                            data-bs-target="#editUserModal" data-bs-whatever="{{ $user->username }}"><i
                                                 class="bx bx-edit me-2"></i> Edit</button>
                                         <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
                                             data-bs-target="#deleteModal" data-bs-whatever="{{ $user->username }}"><i
@@ -59,5 +54,6 @@
         </div>
     </div>
     @include('dashboard/partials/deleteModal')
+    @include('dashboard/users/edit')
     <!--/ Basic Bootstrap Table -->
 @endsection

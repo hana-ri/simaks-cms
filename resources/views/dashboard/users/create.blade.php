@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="user" action="/settings/account" method="POST" id="createNewAccount">
+                <form class="user" action="/settings/users" method="POST" id="createNewAccount">
                     @csrf
                     <div class="form-group">
                         <label for="name" class="form-label">Name</label>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label for="usernameId" class="form-label">Username</label>
-                        <input type="text" class="form-control  @error('username') is-invalid @enderror" id="usernameId"
+                        <input type="text" class="form-control  @error('username') is-invalid @enderror" 
                             name="username" value="{{ old('username') }}">
                         @error('username')
                             <div class="invalid-feedback"> {{ $message }}</div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="emailId" class="form-label">Email address</label>
-                        <input type="email" class="form-control  @error('email') is-invalid @enderror" id="emailId"
+                        <input type="email" class="form-control  @error('email') is-invalid @enderror"
                             name="email" value="{{ old('email') }}">
                         @error('email')
                             <div class="invalid-feedback"> {{ $message }}</div>
