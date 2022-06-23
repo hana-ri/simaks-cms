@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Artesaos\SEOTools\Facades\SEOMeta;
-use Artesaos\SEOTools\Facades\OpenGraph;
-// use Artesaos\SEOTools\Facades\TwitterCard;
-use Artesaos\SEOTools\Facades\JsonLd;
-
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
+
+use Artesaos\SEOTools\Facades\SEOTools;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\JsonLd;
 
 class ArticleController extends Controller
 {
@@ -22,11 +22,12 @@ class ArticleController extends Controller
 	*/
 	public function index()
     {
+		SEOTools::setTitle('SIMAKS Blog');
+        SEOTools::setDescription('Artikel terbaru seputar teknologi, SEO, software development, dan digital marketing di blog SIMAKS');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        SEOTools::twitter()->setSite('@LuizVinicius73');
+        // SEOTools::jsonLd()->addImage('https://codecasts.com.br/img/logo.jpg');
 
-        SEOMeta::setTitle('SIMAKS Blog - Tutorial Website, Bisnis Online, dan Blog');
-        SEOMeta::setDescription('Temukan artikel terbaru seputar teknologi, SEO, software development, dan digital marketing di blog SIMAKS');
-        SEOMeta::setCanonical(url()->current());
-        OpenGraph::setUrl(url()->current());
 
 		if (request('category')) {
 			$category = Category::firstWhere('slug', request('category'));
@@ -53,23 +54,39 @@ class ArticleController extends Controller
 	public function article(Article $article)
 	{
 
-        SEOMeta::setTitle($article->title);
+		SEOMeta::setTitle($article->title);
         SEOMeta::setDescription($article->excerpt);
-        SEOMeta::setCanonical(url()->current());
         SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
-        SEOMeta::addMeta('article:modified_time', $article->updated_at->toW3CString(), 'property');
-        SEOMeta::addMeta('article:section', 'Blog', 'property');
-        SEOMeta::addMeta('article:publisher', 'localhost', 'property');
-        OpenGraph::setTitle($article->title);
+        SEOMeta::addMeta('article:section', $article->category->name, 'property');
+        SEOMeta::addKeyword(['key1', 'key2', 'key3']);
+
         OpenGraph::setDescription($article->excerpt);
+        OpenGraph::setTitle($article->title);
         OpenGraph::addProperty('type', 'article');
         OpenGraph::addProperty('locale', 'en_US');
-        OpenGraph::addProperty('url', url()->current());
-        OpenGraph::addImage(url('').'/'.$article->thumbnail, ['height' => 900, 'width' => 400, 'type' => 'image/jpeg']);
+        OpenGraph::addProperty('locale:alternate', ['id_ID', 'en-us']);
+
+        OpenGraph::addImage($article->thumbnail);
+        // OpenGraph::addImage($article->images->list('url'));
+        OpenGraph::addImage(['url' => url('').'/'.$article->thumbnail, 'size' => 300]);
+        OpenGraph::addImage(url('').'/'.$article->thumbnail, ['height' => 750, 'width' => 300]);
+        
         JsonLd::setTitle($article->title);
         JsonLd::setDescription($article->excerpt);
         JsonLd::setType('Article');
-        JsonLd::addImage(url('').'/'.$article->thumbnail);
+        // JsonLd::addImage($article->images->list('url'));
+
+		OpenGraph::setTitle($article->title)
+		->setDescription($article->excerpt)
+		->setType('article')
+		->setArticle([
+			'published_time' => $article->created_at->toW3CString(),
+			'modified_time' => $article->updated_at->toW3CString(),
+			// 'expiration_time' => 'datetime',
+			'author' => $article->author->name,
+			'section' => $article->category->name,
+			'tag' => 'string / array'
+		]);
 
 		if ($article->is_published) {
 			return view('article', [
@@ -102,7 +119,7 @@ class ArticleController extends Controller
 	public function category(Category $category) {
 		return view('articles', [
 			"categories" => Category::all(),
-			"articles" => $category->articles()->latest()->paginate(9),
+			"articles" => $category->articles()->where('is_published', true)->latest()->paginate(9),
 		]);
 	}
 	

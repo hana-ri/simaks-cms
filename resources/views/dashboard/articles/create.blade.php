@@ -10,7 +10,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <form method="POST" action="/dashboard/posts/" enctype="multipart/form-data">
+                    <form method="POST" action="/dashboard/articles/" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="titleLabel" class="form-label">Title</label>

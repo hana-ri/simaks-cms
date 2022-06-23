@@ -45,8 +45,7 @@
                                             <span>{{ $articles[0]->created_at->diffForHumans() }}</span>
                                         </div>
                                     </div>
-                                    <a href="/blog/{{ $articles[0]->slug }}"
-                                        class="h4 ">{{ $articles[0]->title }}</a>
+                                    <a href="/blog/{{ $articles[0]->slug }}" class="h4">{{ $articles[0]->title }}</a>
                                     <p class="mt-3">{{ $articles[0]->excerpt }}</p>
                                     <a href="/blog/{{ $articles[0]->slug }}" class="read-more">Read More <i
                                             class="fa fa-angle-right"></i></a>
@@ -80,7 +79,8 @@
                                             <span>{{ $article->created_at->diffForHumans() }}</span>
                                         </div>
                                     </div>
-                                    <a href="/blog/{{ $article->slug }}" class="h4 ">{{ $article->title }}</a>
+                                    <a href="/blog/{{ $article->slug }}"
+                                        class="h4 ">{{ $article->title }}</a>
                                     <p class="mt-3">{{ $article->excerpt }}</p>
                                     <a href="/blog/{{ $article->slug }}" class="read-more">Read More <i
                                             class="fa fa-angle-right"></i></a>
@@ -156,7 +156,3 @@
         </div>
     </section>
 @endsection
-
-@push('seo')
-    {!! SEO::generate() !!}
-@endpush
