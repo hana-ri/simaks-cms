@@ -5,17 +5,17 @@
         Create new category
     </button>
     @include('dashboard/categories/create')
-
+    @include('dashboard/partials/alert')
     <!-- Basic Bootstrap Table -->
     <div class="card">
         <h5 class="card-header">Categories</h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table">
+        <div class="table-responsive">
+            <table class="table" id="categoriesTable">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Slug</th>
+                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -24,7 +24,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->slug }}</td>
+                            <td>{{ $category->description }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -45,6 +45,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="col-lg-12 d-flex justify-content-center">
+                {{ $categories->links() }}
+            </div>
         </div>
     </div>
     <!--/ Basic Bootstrap Table -->
@@ -52,21 +55,15 @@
     @include('dashboard/partials/deleteModal')
 @endsection
 
-@push('styles')
-    <style>
-        #postTable_filter {
-            float: left;
-            padding: 10px;
-        }
-
-    </style>
+@push('style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/DataTables/DataTables/datatables.min.css') }}">
 @endpush
 
-@push('scripts')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+@push('script')
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/vendor/DataTables/DataTables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#categoryTable').DataTable({
+            $('#categoriesTable').DataTable({
                 paging: false,
                 ordering: false,
                 info: false,

@@ -87,18 +87,18 @@
     </div>
 @endsection
 
-@push('styles')
+@push('style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-lite.css') }}">
 @endpush
 
-@push('scripts')
+@push('script')
     <script type="text/javascript" src="{{ asset('assets/vendor/summernote/summernote-lite.js') }}"></script>
     <script>
         // Slug
         const title = document.querySelector('#titleLabel');
         const slug = document.querySelector('#slugLabel');
 
-        title.addEventListener('input', function() {
+        title.addEventListener('change', function() {
             fetch(`/dashboard/articles/checkSlug?title=${title.value}`)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug);

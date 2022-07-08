@@ -1,6 +1,6 @@
 @extends('layouts/main')
 @section('container')
-   <!--MAIN BANNER AREA START -->
+<!--MAIN BANNER AREA START -->
 <div class="page-banner-area page-contact" id="page-banner">
     <div class="overlay dark-overlay"></div>
     <div class="container">
@@ -15,7 +15,6 @@
     </div>
 </div>
 <!--MAIN HEADER AREA END -->
-
 <section class="section blog-wrap">
     <div class="container">
         <div class="row">

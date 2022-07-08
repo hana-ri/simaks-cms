@@ -81,7 +81,7 @@
     </div>
 </div>
 
-@push('scripts')
+@push('script')
     <script>
         $(document).ready(function() {
             $("#submitEditBtn").click(function() {
@@ -91,7 +91,7 @@
     </script>
 @endpush
 
-@push('scripts')
+@push('script')
     <script>
         const editUserModal = document.getElementById('editUserModal');
         editUserModal.addEventListener('show.bs.modal', event => {
@@ -104,11 +104,12 @@
             fetch(`/settings/users/${username}/edit`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    document.querySelector('#nameId').value = data.name;
-                    document.querySelector('#usernameId').value = data.username;
-                    document.querySelector('#emailId').value = data.email;
-                    $('#editAccount').attr('action', `{{ URL::current() }}/${username}`)
+                    $('#nameId').val(data.name);
+                    $('#usernameId').val(data.username);
+                    $('#emailId').val(data.email);
+                    $('select[name="is_admin"]').find(`option[value="${data.is_admin}"]`).attr("selected",true);
+                    $('select[name="is_actived"]').find(`option[value="${data.is_actived}"]`).attr("selected",true);
+                    $('#editAccount').attr('action', `{{ URL::current() }}/${username}`);
                 })
         })
     </script>

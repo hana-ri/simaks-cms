@@ -1,36 +1,28 @@
 @extends('dashboard/layouts/main')
-
 @section('container')
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
-        Create new account
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+        Create new tag
     </button>
-    @include('dashboard/users/create')
+    @include('dashboard/tags/create')
     @include('dashboard/partials/alert')
     <!-- Basic Bootstrap Table -->
     <div class="card">
-        <h5 class="card-header">Accounts</h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table" id="usersTable">
+        <h5 class="card-header">Tags</h5>
+        <div class="table-responsive">
+            <table class="table" id="tagsTabel">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($users as $user)
+                    @foreach ($tags as $tag)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            {{-- <td></td> --}}
-                            <td>{!! $user->is_admin ? '<span class="badge bg-primary">Admin</span>' : '<span class="badge bg-secondary">User</span>' !!}</td>
-                            <td>{!! $user->is_actived ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-warning">Inactive</span>' !!}</td>
+                            <td>{{ $tag->name }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -39,10 +31,10 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#editUserModal" data-bs-whatever="{{ $user->username }}"><i
+                                            data-bs-target="#editModal" data-bs-whatever="{{ $tag->slug }}"><i
                                                 class="bx bx-edit me-2"></i> Edit</button>
                                         <button type="button" class="dropdown-item btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal" data-bs-whatever="{{ $user->username }}"><i
+                                            data-bs-target="#deleteModal" data-bs-whatever="{{ $tag->slug }}"><i
                                                 class="bx bx-trash me-2"></i> Delete</button>
                                     </div>
                                 </div>
@@ -51,14 +43,14 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="col-lg-12 d-flex justify-content-center">
-                {{ $users->links() }}
-            </div>
+{{--             <div class="col-lg-12 d-flex justify-content-center">
+                {{ $categories->links() }}
+            </div> --}}
         </div>
     </div>
-    @include('dashboard/partials/deleteModal')
-    @include('dashboard/users/edit')
     <!--/ Basic Bootstrap Table -->
+    {{-- @include('dashboard/categories/edit') --}}
+    @include('dashboard/partials/deleteModal')
 @endsection
 
 @push('style')
@@ -69,7 +61,7 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/vendor/DataTables/DataTables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#usersTable').DataTable({
+            $('#tagsTabel').DataTable({
                 paging: false,
                 ordering: false,
                 info: false,

@@ -3,11 +3,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">New category</h5>
+                <h5 class="modal-title" id="createModalLabel">New tag</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/dashboard/categories" method="POST" id="createNewCategory">
+                <form action="/dashboard/tag" method="POST" id="createNewCategory">
                     @csrf
                     <div class="mb-3">
                         <label for="nameLabel" class="form-label">Name</label>
@@ -25,15 +25,6 @@
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <label for="Description" class="form-label">Description</label>
-                        <input type="text" class="form-control @error('description') is-invalid @enderror"
-                            id="Description" aria-describedby="name" name="description"
-                            value="{{ old('description') }}" placeholder="Description mask 250 character" required>
-                        @error('description')
-                            <div class="invalid-feedback"> {{ $message }}</div>
-                        @enderror
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -46,6 +37,7 @@
 
 @push('script')
     <script>
+        // Slug
         const title = document.querySelector('#nameLabel');
         const slug = document.querySelector('#slugLabel');
 

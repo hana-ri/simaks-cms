@@ -80,7 +80,7 @@
     </div>
 </div>
 
-@push('scripts')
+@push('script')
     <script>
         $(document).ready(function() {
             $("#submitButton").click(function() {

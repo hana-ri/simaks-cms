@@ -82,4 +82,9 @@ class Article extends Model
             ]
         ];
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Article::class, 'tag_article');
+    }
 }

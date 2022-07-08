@@ -30,23 +30,23 @@
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/pages/page-auth.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('/assets/vendor/css/pages/page-auth.css') }}" /> --}}
     <!-- Helpers -->
     <script src="{{ asset('/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('/assets/js/config.js') }}"></script>
-    @stack('styles')
+    @stack('style')
 </head>
 
 <body>
     <!-- Content -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            <!-- Menu -->
+            <!-- sidebar -->
             @include('dashboard/partials/sidebar')
-            <!-- / Menu -->
+            <!-- / sidebar -->
 
             <!-- Layout container -->
             <div class="layout-page">
@@ -56,12 +56,10 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- Content -->
 
+                    <!-- Content -->
                     <div class="container-fluid flex-grow-1 container-p-y">
-                        <!-- Layout Demo -->
                         @yield('container')
-                        <!--/ Layout Demo -->
                     </div>
                     <!-- / Content -->
 
@@ -85,7 +83,6 @@
     <script src="{{ asset('/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
     <script src="{{ asset('/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
@@ -93,7 +90,7 @@
 
     <!-- Main JS -->
     <script src="{{ asset('/assets/js/main.js') }}"></script>
-    @stack('scripts')
+    @stack('script')
 </body>
 
 </html>

@@ -43,7 +43,7 @@
     </div>
 </div>
 
-@push('scripts')
+@push('script')
     <script>
         const editTitle = document.querySelector('#editNameLabel');
         const editSlug = document.querySelector('#editSlugLabel');
@@ -76,7 +76,7 @@
                     editTitle.value = data.name;
                     editSlug.value = data.slug;
                     editDescription.value = data.description;
-                    $('#editCategory').attr('action', `{{ URL::current() }}/${slug} }}`)
+                    $('#editCategory').attr('action', `{{ URL::current() }}/${slug}`)
                 })
         });
     </script>

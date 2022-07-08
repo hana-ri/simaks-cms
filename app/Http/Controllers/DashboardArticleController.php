@@ -12,7 +12,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\Article;
 use App\Models\Category;
 
-class DashboardArticle extends Controller
+class DashboardArticleController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -52,16 +52,6 @@ class DashboardArticle extends Controller
 	 */
 	public function store(Request $request)
 	{
-
-		// $validatedData = $request->validate([
-		// 	'title' => 'required|max:255',
-		// 	'slug' => 'required|unique:articles',
-		// 	'is_published' => 'required',
-		// 	'category_id' => 'required',
-		// 	'body' => 'required',
-		// 	'thumbnail' => 'image|file|max:1024'
-		// ]);
-
 		$rules = [
 			'title' => 'required|max:255',
 			'slug' => 'required|unique:articles',
@@ -119,7 +109,7 @@ class DashboardArticle extends Controller
 
 		Article::create($validatedData);
 
-		return redirect('/dashboard/articles')->with('success', 'Article created');
+		return redirect('/dashboard/articles')->with('success', 'Article created successfully');
 	}
 
 	/**
@@ -222,9 +212,7 @@ class DashboardArticle extends Controller
 			$validatedData
 		);
 
-		// Article::where(['id' => $article->id, 'user_id' => auth()->user()->id])->update($validatedData);
-
-		return redirect('/dashboard/articles')->with('success', 'Article updated!');
+		return redirect('/dashboard/articles')->with('success', 'Article updated successfully');
 	}
 
 	/**
@@ -259,7 +247,7 @@ class DashboardArticle extends Controller
 
 		Article::destroy($article->id);
 
-		return redirect('/dashboard/articles')->with('success', 'Article has been deleted');
+		return back()->with('success', 'Article deleted successfully');
 	}
 
 	public function checkSlug(Request $request)

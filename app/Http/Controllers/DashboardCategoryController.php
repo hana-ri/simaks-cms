@@ -9,7 +9,7 @@ use Redirect,Response;
 
 use Ramsey\Uuid\Uuid;
 
-class CategoryController extends Controller
+class DashboardCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class CategoryController extends Controller
         $this->authorize('admin');
 
         return view('dashboard/categories/index', [
-            'categories' => Category::all(),
+            'categories' => Category::paginate(50),
         ]);
     }
 
@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         Category::create($validatedData);
 
-        return redirect('/dashboard/categories')->with('success', 'Category created');
+        return redirect('/dashboard/categories')->with('success', 'Category created successfully');
     }
 
     /**
@@ -86,7 +86,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        // dd($request);
         $rules = [
             'name' => 'required|max:60',
             'description' => 'required'
@@ -100,7 +99,7 @@ class CategoryController extends Controller
 
         Category::where('id', $category->id)->update($validatedData);
 
-        return redirect('/dashboard/categories')->with('success', 'Category updated!');
+        return redirect('/dashboard/categories')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -113,6 +112,6 @@ class CategoryController extends Controller
     {
         Category::destroy($category->id);
 
-        return redirect('/dashboard/categories')->with('success', 'Article has been deleted');
+        return redirect('/dashboard/categories')->with('success', 'Category deleted successfully');
     }
 }

@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardArticle;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
-use App\Http\Livewire\DashboardCategory;
+// use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardArticleController;
+use App\Http\Controllers\DashboardCategoryController;
+use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\DashboardTagController;
 
 
 /*
@@ -61,22 +61,22 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 /**
 * menangani route dashboard.
-*
-* @param  App\Http\Controllers\RegisterController;
 */
 Route::get('/dashboard', function() { 
 	    return view('dashboard/index');
     })->middleware('auth');
 
-Route::get('/dashboard/articles/checkSlug', [DashboardArticle::class, 'checkSlug']);
+Route::get('/dashboard/articles/checkSlug', [DashboardArticleController::class, 'checkSlug']);
 
-Route::resource('/dashboard/articles', DashboardArticle::class)
+Route::resource('/dashboard/articles', DashboardArticleController::class)
         ->middleware('auth');
 
-Route::resource('/dashboard/categories', CategoryController::class)
+Route::resource('/dashboard/categories', DashboardCategoryController::class)
         ->except(['show', 'create'])
         ->middleware('auth');
 
-Route::resource('/settings/users', UserController::class)
+Route::resource('/settings/users', DashboardUserController::class)
         ->except(['show', 'create'])
         ->middleware('admin');
+
+Route::resource('/dashboard/tag', DashboardTagController::class)->middleware('admin'); 

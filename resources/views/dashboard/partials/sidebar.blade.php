@@ -84,7 +84,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="/dashboard/tag" class="menu-link">
                         <div data-i18n="Connections">Tags</div>
                     </a>
                 </li>

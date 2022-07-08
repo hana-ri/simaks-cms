@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use DB, Response;
 
-class UserController extends Controller
+class DashboardUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         return view('/dashboard/users/index',[
             'page' => 'register',
-            'users' => User::all()
+            'users' => User::paginate(50),
         ]);
     }
 
@@ -53,7 +53,7 @@ class UserController extends Controller
 
 		User::create($validateData);
 
-    	return redirect('/settings/users')->with('success', 'Registration Successfully!');
+    	return redirect('/settings/users')->with('success', 'Account created successfully');
     }
 
     /**
@@ -121,11 +121,11 @@ class UserController extends Controller
             if(!$update_user){
                 DB::rollBack();
 
-                return back()->with('error', 'Something went wrong while update user data');
+                return back()->with('error', 'Something went wrong while update account data');
             }
 
             DB::commit();
-            return redirect('/settings/users')->with('success', 'Category updated!');
+            return redirect('/settings/users')->with('success', 'Account updated successfully');
 
         }  catch (\Throwable $th) {
             DB::rollBack();
@@ -154,7 +154,7 @@ class UserController extends Controller
             }
 
             DB::commit();
-            return redirect('/settings/users')->with('success', 'User Deleted successfully.');
+            return redirect('/settings/users')->with('success', 'Account deleted successfully.');
 
         } catch (\Throwable $th) {
             DB::rollBack();
