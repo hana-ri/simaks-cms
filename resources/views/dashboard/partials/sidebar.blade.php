@@ -83,8 +83,8 @@
                         <div data-i18n="Categories">Categories</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="/dashboard/tag" class="menu-link">
+                <li class="menu-item {{ (Request::is('dashboard/tags')) ? 'active' : '' }}">
+                    <a href="/dashboard/tags" class="menu-link">
                         <div data-i18n="Connections">Tags</div>
                     </a>
                 </li>

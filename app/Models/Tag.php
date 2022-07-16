@@ -13,7 +13,8 @@ class Tag extends Model
 
     public function articles()
     {
-    	return $this->belongsToMany(Article::class, 'tag_article');
+    	// return $this->belongsToMany(Article::class, 'tag_article');
+    	return $this->belongsToMany(Article::class);
     }
 
     public function getRouteKeyName()

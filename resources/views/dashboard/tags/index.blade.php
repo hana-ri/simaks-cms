@@ -15,6 +15,7 @@
                     <tr>
                         <th>No</th>
                         <th>Name</th>
+                        <th>Slug</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $tag->name }}</td>
+                            <td>{{ $tag->slug }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -43,13 +45,13 @@
                     @endforeach
                 </tbody>
             </table>
-{{--             <div class="col-lg-12 d-flex justify-content-center">
-                {{ $categories->links() }}
-            </div> --}}
+            <div class="col-lg-12 d-flex justify-content-center">
+                {{ $tags->links() }}
+            </div>
         </div>
     </div>
     <!--/ Basic Bootstrap Table -->
-    {{-- @include('dashboard/categories/edit') --}}
+    @include('dashboard/tags/edit')
     @include('dashboard/partials/deleteModal')
 @endsection
 

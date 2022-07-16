@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
+use Response;
+
 class DashboardTagController extends Controller
 {
     /**
@@ -45,7 +47,7 @@ class DashboardTagController extends Controller
 
         Tag::create($validatedData);
 
-        return redirect('/dashboard/tag')->with('success', 'Category created successfully');
+        return redirect('/dashboard/tags')->with('success', 'Tag created successfully');
     }
 
     /**
@@ -67,7 +69,7 @@ class DashboardTagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return Response::json($tag);
     }
 
     /**
@@ -79,7 +81,19 @@ class DashboardTagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $rules = [
+            'name' => 'required|max:60',
+        ];
+
+        if ($request->slug != $tag->slug) {
+            $rules['slug'] = 'required|unique:tags';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Tag::where('id', $tag->id)->update($validatedData);
+
+        return redirect('/dashboard/tags')->with('success', 'Tag updated successfully');
     }
 
     /**
@@ -90,6 +104,8 @@ class DashboardTagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        Tag::destroy($tag->id);
+
+        return redirect('/dashboard/tags')->with('success', 'Tag deleted successfully');
     }
 }

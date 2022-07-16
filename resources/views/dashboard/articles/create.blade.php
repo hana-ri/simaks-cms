@@ -4,10 +4,7 @@
         <!-- Area Chart -->
         <div class="col-md-12 col-md-8">
             <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Create Article</h6>
-                </div>
+                    <h5 class="card-header">Create post</h5>
                 <!-- Card Body -->
                 <div class="card-body">
                     <form method="POST" action="/dashboard/articles/" enctype="multipart/form-data">
@@ -42,7 +39,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row mb-3">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="category" class="form-label">Category</label>
                                 <select class="form-select" aria-label="Default select example" name="category_id">
@@ -77,6 +74,15 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label for="tags" class="form-label">Content</label>
+                            <select class="form-select" multiple aria-label="multiple select" id="tags" name="tags[]">
+                                @foreach($tags as $tag)
+                                        <option value="{{ $tag->slug }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="modal-footer">
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </div>
@@ -89,9 +95,11 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-lite.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/vendor/summernote/summernote-lite.js') }}"></script>
     <script>
         // Slug
@@ -118,9 +126,7 @@
                 thumbnailPreview.src = oFReader.target.result;
             }
         }
-    </script>
 
-    <script>
         // summernote
         $(document).ready(function() {
             $('#summernote').summernote({
@@ -136,6 +142,14 @@
                 ],
                 placeholder: 'Text editor...',
                 height: 200,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#tags").select2({
+                placeholder: "Select Tags",
+                maximumSelectionLength: 3,
             });
         });
     </script>

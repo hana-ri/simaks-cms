@@ -3,17 +3,14 @@
     <!-- Begin Page Content -->
     <div class="col-md-12  col-md-8">
         <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Update Post</h6>
-            </div>
+            <h5 class="card-header">Update post</h5>
             <div class="card-body">
                 <form form method="POST" action="/dashboard/articles/{{ $article->slug }}" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="titleLabel"
                             aria-describedby="title" name="title" value="{{ $article->title }}" required>
                         @error('title')
                             <div class="invalid-feedback"> {{ $message }}</div>
@@ -21,8 +18,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>
-                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
-                            value="{{ $article->slug }}" readonly>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slugLabel"
+                            name="slug" value="{{ $article->slug }}" readonly>
                         @error('slug')
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
@@ -41,7 +38,7 @@
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row mb-3">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="category" class="form-label">Category</label>
                             <select class="form-select" aria-label="Default select example" name="category_id">
@@ -59,7 +56,8 @@
                                 <label for="category" class="form-label">Status</label>
                                 <select class="form-select" aria-label="Default select example" name="is_published">
                                     <option value="1" {{ $article->is_published ? 'Selected' : '' }}>Published</option>
-                                    <option value="0" {{ !$article->is_published ? 'Selected' : '' }}>Unpublished</option>
+                                    <option value="0" {{ !$article->is_published ? 'Selected' : '' }}>Unpublished
+                                    </option>
                                 </select>
                             @else
                                 <input type="hidden" name="is_published" value="0">
@@ -73,6 +71,14 @@
                             <div class="invalid-feedback"> {{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="tags" class="form-label">Content</label>
+                        <select class="form-select" aria-label="multiple select" id="tags" name="tags[]" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->slug }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
@@ -84,9 +90,11 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-lite.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/vendor/summernote/summernote-lite.js') }}"></script>
     <script>
         // Slug
@@ -131,6 +139,14 @@
                 ],
                 placeholder: 'Text editor...',
                 height: 200,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tags").select2({
+                placeholder: "Select Tags",
+                maximumSelectionLength: 3,
             });
         });
     </script>

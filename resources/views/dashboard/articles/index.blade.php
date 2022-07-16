@@ -1,9 +1,10 @@
 @extends('dashboard/layouts/main')
+{{-- @dd($articles[4]->category) --}}
 @section('container')
 @include('dashboard/partials/alert')
     <a href="/dashboard/articles/create" class="btn btn-primary mb-4">Create new post</a>
     <!-- Basic Bootstrap Table -->
-    <div class="card">
+    <div class="card shadow">
         <h5 class="card-header">Posts</h5>
         <div class="table-responsive">
             <table class="table" id="postTable">
@@ -20,9 +21,9 @@
                     @foreach ($articles as $article)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td><strong>{{ $article->title }}</strong></td>
+                            <td><strong><a href="/dashboard/articles/{{ $article->slug }}" target="_blank">{{ $article->title }}</a></strong></td>
                             <td>{!! $article->is_published == true ? '<span class="badge bg-label-primary me-1">Published</span>' : '<span class="badge bg-label-warning me-1">Unpublished</span>' !!}</td>
-                            <td>{{ $article->category->name }}</td>
+                            <td>{{ ($article->category == null) ? 'Uncateogry' : $article->category->name  }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

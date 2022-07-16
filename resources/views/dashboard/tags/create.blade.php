@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/dashboard/tag" method="POST" id="createNewCategory">
+                <form action="/dashboard/tags" method="POST" id="createNewCategory">
                     @csrf
                     <div class="mb-3">
                         <label for="nameLabel" class="form-label">Name</label>

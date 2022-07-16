@@ -79,4 +79,4 @@ Route::resource('/settings/users', DashboardUserController::class)
         ->except(['show', 'create'])
         ->middleware('admin');
 
-Route::resource('/dashboard/tag', DashboardTagController::class)->middleware('admin'); 
+Route::resource('/dashboard/tags', DashboardTagController::class)->middleware('admin'); 

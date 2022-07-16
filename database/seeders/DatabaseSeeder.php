@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Tag;
 
 class DatabaseSeeder extends Seeder
 {
@@ -47,11 +48,31 @@ class DatabaseSeeder extends Seeder
     		"description" => "cyber security Adipisicing anim ullamco cillum in ex minim laborum reprehenderit eu nisi excepteur."
     	]);
 
+        Tag::create([
+            "name" => "Linux",
+            "slug" => "linux"
+        ]);
+
+        Tag::create([
+            "name" => "Windows",
+            "slug" => "windows"
+        ]);
+
+        Tag::create([
+            "name" => "Axioo",
+            "slug" => "axioo"
+        ]);
+
+        Tag::create([
+            "name" => "Tutorial",
+            "slug" => "tutorial"
+        ]);
+
         User::factory(5)->create();
 
-        Article::factory(50)->create();
+        Article::factory(100)->create();
 
-        Category::factory(2)->create();
+        // Category::factory(2)->create();
 
 /*
 

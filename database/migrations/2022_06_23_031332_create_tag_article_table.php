@@ -13,7 +13,8 @@ class CreateTagArticleTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_article', function (Blueprint $table) {
+        Schema::create('article_tag', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('article_id')->unsigned();
             $table->foreignId('tag_id')->unsigned();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
@@ -28,6 +29,6 @@ class CreateTagArticleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tag_article');
+        Schema::dropIfExists('article_tag');
     }
 }

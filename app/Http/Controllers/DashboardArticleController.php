@@ -11,6 +11,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 
 class DashboardArticleController extends Controller
 {
@@ -40,7 +41,8 @@ class DashboardArticleController extends Controller
 	public function create()
 	{
 		return view('dashboard/articles/create', [
-			'categories' => Category::all()
+			'categories' => Category::all(),
+			'tags' => Tag::all(),
 		]);
 	}
 
@@ -58,13 +60,14 @@ class DashboardArticleController extends Controller
 			'category_id' => 'required',
 			'body' => 'required',
 			'is_published' => 'required',
-			'thumbnail' => 'image|file|max:1024'
+			'thumbnail' => 'nullable|image|file|max:1024',
+			'tags' => 'nullable'
 		];
 
 		$validatedData = $request->validate($rules);
 
 		if ($request->file('thumbnail')) {
-			$newFileName = time().substr(md5($request->file('thumbnail')), 6, 6);
+			$newFileName = substr(md5($request->file('thumbnail')), 6, 6).'_'.time();
 			$fileExtension = $request->file('thumbnail')->extension();
 			$validatedData['thumbnail'] = $request->file('thumbnail')->storeAs('article-thumbnails', "$newFileName.$fileExtension");
 		}
@@ -73,41 +76,16 @@ class DashboardArticleController extends Controller
 
 		$validatedData['excerpt'] = Str::limit(strip_tags($request->body), 160);
 
-
-		// Summernote images upload
-		$storage = 'storage/article-images';
-		$content = $request->body;
-		$dom = new \DomDocument();
-		libxml_use_internal_errors(true);
-		$dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-		libxml_clear_errors();
-		$images = $dom->getElementsByTagName('img');
-
-
-		foreach ($images as $img) {
-			$src = $img->getAttribute('src');
-			if (preg_match('/data:image/', $src)) {
-				preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-				$mimeType = $groups['mime'];
-				$fileNameContent = uniqid();
-				$fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
-				$filePath = ("$storage/$fileNameContentRand.$mimeType");
-				$image = Image::make($src)
-							// ->resize(900, 400)
-							->encode($mimeType, 100)
-							->save(public_path($filePath));
-				$new_src = asset($filePath);
-				$img->removeAttribute('src');
-				$img->setAttribute('src', $new_src);
-				$img->setAttribute('class', 'img-responsive');
-			}
-		}
-
-		$body = $dom->saveHTML();
+		$body = $this->summernoteImageUpload($request->body);
 
 		$validatedData['body'] = $body;
 
-		Article::create($validatedData);
+		$article = new Article($validatedData);
+		$article->save();
+		if ($request->tags) {
+			$tag = Tag::whereIn('slug', $validatedData['tags'])->get();
+			$article->tags()->attach($tag);
+		}
 
 		return redirect('/dashboard/articles')->with('success', 'Article created successfully');
 	}
@@ -136,6 +114,7 @@ class DashboardArticleController extends Controller
 		return view('/dashboard/articles/edit', [
 			'article' => $article,
 			'categories' => Category::all(),
+			'tags' => Tag::all(),
 		]);
 	}
 
@@ -153,7 +132,7 @@ class DashboardArticleController extends Controller
 			'category_id' => 'required',
 			'body' => 'required',
 			'is_published' => 'required',
-			'thumbnail' => 'image|file|max:1024'
+			'thumbnail' => 'nullable|image|file|max:1024',
 		];
 
 		if ($request->slug !== $article->slug) {
@@ -162,55 +141,30 @@ class DashboardArticleController extends Controller
 
 		$validatedData = $request->validate($rules);
 
+		// Thumbnail update
 		if ($request->file('thumbnail')) {
 			if($request->oldThumbnail) {
 				Storage::delete($request->oldThumbnail);
 			}
-			$newFileName = time().substr(md5($request->file('thumbnail')), 6, 6);
+			$newFileName = substr(md5($request->file('thumbnail')), 6, 6).'_'.time();
 			$fileExtension = $request->file('thumbnail')->extension();
 			$validatedData['thumbnail'] = $request->file('thumbnail')->storeAs('article-thumbnails', "$newFileName.$fileExtension");
 		}
 
-		$validatedData['user_id'] = auth()->user()->id;
-
 		$validatedData['excerpt'] = Str::limit(strip_tags($request->body), 250);
 
-		// Summernote images upload
-		$storage = 'storage/article-images';
-		$requestContent = $request->body;
-		$dom = new \DomDocument();
-		libxml_use_internal_errors(true);
-		$dom->loadHtml($requestContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-		libxml_clear_errors();
-		$requestImages = $dom->getElementsByTagName('img');
-
-		foreach ($requestImages as $img) {
-			$src = $img->getAttribute('src');
-			if (preg_match('/data:image/', $src)) {
-				preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-				$mimeType = $groups['mime'];
-				$fileNameContent = uniqid();
-				$fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
-				$filePath = ("$storage/$fileNameContentRand.$mimeType");
-				$image = Image::make($src)
-							// ->resize(900, 400)
-							->encode($mimeType, 80)
-							->save(public_path($filePath));
-				$new_src = asset($filePath);
-				$img->removeAttribute('src');
-				$img->setAttribute('src', $new_src);
-				$img->setAttribute('class', 'img-responsive');
-			}
-		}
-
-		$body = $dom->saveHTML();
-
+		
+		$body = $this->summernoteImageUpload($request->body);
+		
 		$validatedData['body'] = $body;
-
-		Article::updateOrCreate(
-			['id' => $article->id, 'user_id' => auth()->user()->id],
-			$validatedData
-		);
+		
+		$article->update($validatedData);
+	
+		if ($request->tags) {
+			$article->tags()->detach();
+			$tag = Tag::whereIn('slug', $request->tags)->get();	
+			$article->tags()->attach($tag);
+		}
 
 		return redirect('/dashboard/articles')->with('success', 'Article updated successfully');
 	}
@@ -224,8 +178,65 @@ class DashboardArticleController extends Controller
 	public function destroy(Article $article)
 	{        
 
+		$this->summernoteImageDelete($article->body);
+		// Thumbnail delete
+		if($article->thumbnail) {
+				Storage::delete($article->thumbnail);
+		}
+
+		$article->tags()->detach();
+		$article->delete();
+
+		return back()->with('success', 'Article deleted successfully');
+	}
+
+	public function checkSlug(Request $request)
+	{
+		$slug = SlugService::createSlug(Article::class, 'slug', $request->title);
+		return response()->json(['slug' => $slug]);
+	}
+
+	public function summernoteImageUpload($body)
+	{
+		// Summernote images upload
+		$storage = 'storage/article-images';
+		if (!file_exists($storage)) {
+			mkdir($storage, 775, true);
+		}
+		$content = $body;
+		$dom = new \DomDocument();
+		libxml_use_internal_errors(true);
+		$dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		libxml_clear_errors();
+		$images = $dom->getElementsByTagName('img');
+
+
+		foreach ($images as $img) {
+			$src = $img->getAttribute('src');
+			if (preg_match('/data:image/', $src)) {
+				preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+				$mimeType = $groups['mime'];
+				$fileNameContent = uniqid();
+				$fileNameContentRand = substr(md5($fileNameContent), 6,6).'_'.time();
+				$filePath = ("$storage/$fileNameContentRand.$mimeType");
+				$image = Image::make($src)
+							// ->resize(900, 400)
+							->encode($mimeType, 60)
+							->save(public_path($filePath));
+				$new_src = asset($filePath);
+				$img->removeAttribute('src');
+				$img->setAttribute('src', $new_src);
+				$img->setAttribute('class', 'img-responsive');
+			}
+		}
+
+		return $dom->saveHTML();
+	}
+
+	public function summernoteImageDelete($body)
+	{
 		// Summernote images delete
-		$content = $article->body;
+		$content = $body;
 		$dom = new \DomDocument();
 		libxml_use_internal_errors(true);
 		$dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -239,21 +250,5 @@ class DashboardArticleController extends Controller
 				Storage::delete($groups[0]);
 			}
 		}
-
-		// Thumbnail delete
-		if($article->thumbnail) {
-				Storage::delete($article->thumbnail);
-		}
-
-		Article::destroy($article->id);
-
-		return back()->with('success', 'Article deleted successfully');
-	}
-
-	public function checkSlug(Request $request)
-	{
-		$slug = SlugService::createSlug(Article::class, 'slug', $request->title);
-
-		return response()->json(['slug' => $slug]);
 	}
 }
