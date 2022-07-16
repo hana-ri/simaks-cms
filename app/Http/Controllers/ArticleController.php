@@ -53,12 +53,16 @@ class ArticleController extends Controller
 	*/
 	public function article(Article $article)
 	{
+		$keyword = array();
+		foreach ($article->tags as $tag) {
+			$keyword[] = $tag->name;
+		}
 
 		SEOMeta::setTitle($article->title);
         SEOMeta::setDescription($article->excerpt);
         SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
         SEOMeta::addMeta('article:section', $article->category->name, 'property');
-        SEOMeta::addKeyword(['key1', 'key2', 'key3']);
+        SEOMeta::addKeyword($keyword);
 
         OpenGraph::setDescription($article->excerpt);
         OpenGraph::setTitle($article->title);
